@@ -1,5 +1,5 @@
 package App::CLI;
-our $VERSION = '0.31';
+our $VERSION = '0.311';
 use strict;
 use warnings;
 
