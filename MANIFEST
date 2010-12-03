@@ -15,6 +15,7 @@ inc/Module/Install/Win32.pm
 inc/Module/Install/WriteAll.pm
 lib/App/CLI.pm
 lib/App/CLI/Command.pm
+lib/App/CLI/Helper.pm
 lib/App/CLI/Command/Help.pm
 t/1basic.t
 t/lib/CLITest.pm
