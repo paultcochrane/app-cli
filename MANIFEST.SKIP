@@ -8,3 +8,4 @@ MYMETA.yml
 test*
 shipit
 META.yml
+.*\.bak$
