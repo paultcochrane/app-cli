@@ -5,4 +5,7 @@ inc/
 pm_to_blib
 *~
 blib
-*.swp
+*.sw[po]
+*.bak
+MANIFEST
+App-CLI-*.tar.gz
