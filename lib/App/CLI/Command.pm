@@ -93,8 +93,7 @@ sub cascading {
   my $self = shift;
   if (my $subcmd = $self->cascadable) {
     shift @ARGV;
-    my %data = %{$self};
-    return bless {%data}, $subcmd;
+    return $subcmd->new(%{$self});
   } else {
     die $self->error_cmd;
   }
