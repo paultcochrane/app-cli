@@ -1,6 +1,6 @@
 package MyApp::Test;
 use strict;
-use base qw(MyApp);
+use base qw(App::CLI::Command);
 use CLITest;
 use constant subcommands => qw(hate Cascading);
 use constant options => (
