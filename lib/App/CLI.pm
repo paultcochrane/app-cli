@@ -103,7 +103,6 @@ options.
 
 =cut
 
-
 use App::CLI::Helper;
 
 use constant alias => ();
@@ -125,7 +124,6 @@ sub prepare {
     $cmd;
 }
 
-
 sub opt_map {
     my ($self) = @_;
     my %opt = $self->global_options;
@@ -135,7 +133,6 @@ sub opt_map {
     );
 }
 
-
 =head3
 
 interface of dispatcher
@@ -144,27 +141,7 @@ interface of dispatcher
 
 sub dispatch { shift->new()->prepare(@_)->run_command(@ARGV) }
 
-
-=head3 cmd_map($cmd)
-
-find package name of subcommand in constant %alias
-
-if it's finded, return ucfirst of the package name,
-
-otherwise, return ucfirst of $cmd itself.
-
-=cut
-
-sub cmd_map {
-    my ($pkg, $cmd) = @_;
-    my %alias = $pkg->alias;
-    $cmd = $alias{$cmd} if exists $alias{$cmd};
-    return ucfirst($cmd);
-}
-
-sub error_cmd {
-    "Command not recognized, try $0 --help.\n";
-}
+sub error_cmd { "Command not recognized, try $0 --help.\n"; }
 
 sub error_opt { $_[1] }
 
@@ -178,7 +155,9 @@ sub get_cmd {
     my ($class, $cmd, @arg) = @_;
     die $class->error_cmd unless $cmd && $cmd =~ m/^[?a-z]+$/;
 
-    my $pkg = join('::', $class, $class->cmd_map($cmd));
+    my %alias = $class->alias;
+    $cmd = exists($alias{$cmd}) ? ucfirst($alias{$cmd}) : ucfirst($cmd);
+    my $pkg = join('::', $class, $cmd);
     my $file = "$pkg.pm";
     $file =~ s!::!/!g;
     eval { require $file; };
@@ -192,7 +171,6 @@ sub get_cmd {
       return $cmd;
     }
 }
-
 
 =head1 SEE ALSO
 
