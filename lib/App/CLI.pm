@@ -105,7 +105,6 @@ options.
 
 
 use App::CLI::Helper;
-use Getopt::Long ();
 
 use constant alias => ();
 use constant global_options => ();
@@ -117,44 +116,23 @@ sub new {
 }
 
 sub prepare {
-    my $class = shift;
-    my $data = {};
-
-    $class->get_opt([qw(no_ignore_case bundling pass_through)], opt_map($data, $class->global_options));
-
-    my $cmd = $class->get_cmd(shift @ARGV, @_, %$data);
-
+    my $self = shift;
+    $self->opt_map;
+    my $cmd = ref($self)->get_cmd(shift @ARGV, @_, %{$self});
     while ($cmd->cascadable) { $cmd = $cmd->cascading }
-
-    $class->get_opt([qw(no_ignore_case bundling)], $cmd->options_mapper);
-
+    $cmd->options_mapper;
     $cmd = $cmd->subcommand;
-
-    return $cmd;
+    $cmd;
 }
 
-=head3 get_opt([@config], %opt_map)
-
-    give options map, process by Getopt::Long::Parser
-
-=cut
-
-sub get_opt {
-    my $class = shift;
-    my $config = shift;
-    my $p = Getopt::Long::Parser->new;
-    $p->configure(@$config);
-    my $err = '';
-    local $SIG{__WARN__} = sub { 
-      my $msg = shift;
-      $err .= "$msg"
-    };
-    die $class->error_opt ($err) unless $p->getoptions(@_);
-}
 
 sub opt_map {
-    my ($self, %opt) = @_;
-    return map { $_ => ref($opt{$_}) ? $opt{$_} : \$self->{$opt{$_}}} keys %opt;
+    my ($self) = @_;
+    my %opt = $self->global_options;
+    get_opt(
+      [qw(no_ignore_case bundling pass_through)],
+      map { $_ => ref($opt{$_}) ? $opt{$_} : \$self->{$opt{$_}}} keys %opt
+    );
 }
 
 
@@ -164,10 +142,7 @@ interface of dispatcher
 
 =cut
 
-sub dispatch {
-    my $class = shift;
-    $class->prepare(@_)->run_command(@ARGV);
-}
+sub dispatch { shift->new()->prepare(@_)->run_command(@ARGV) }
 
 
 =head3 cmd_map($cmd)

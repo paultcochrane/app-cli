@@ -1,12 +1,30 @@
 package App::CLI::Helper;
+use Getopt::Long;
 
 sub import {
   my $caller = caller;
-  for (qw(commands files)) {
+  for (qw(get_opt commands files)) {
     *{$caller."::$_"} = *$_;
   }
 }
 
+=head3 get_opt([@config], %opt_map)
+
+    give options map, process by Getopt::Long::Parser
+
+=cut
+
+sub get_opt {
+    my $config = shift;
+    my $p = Getopt::Long::Parser->new;
+    $p->configure(@$config);
+    my $err = '';
+    local $SIG{__WARN__} = sub { 
+      my $msg = shift;
+      $err .= "$msg"
+    };
+    die $class->error_opt ($err) unless $p->getoptions(@_);
+}
 
 =head3 commands()
 
