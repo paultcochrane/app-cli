@@ -102,7 +102,7 @@ sub cascading {
     shift @ARGV;
     return $subcmd->new(%{$self});
   } else {
-    die $self->error_cmd;
+    die "not cascadable $0";
   }
 }
 

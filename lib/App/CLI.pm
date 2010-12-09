@@ -116,7 +116,7 @@ sub new {
 
 sub prepare {
     my $self = shift;
-    $self->opt_map;
+    $self->options_mapper;
     my $cmd = ref($self)->get_cmd(shift @ARGV, @_, %{$self});
     while ($cmd->cascadable) { $cmd = $cmd->cascading }
     $cmd->options_mapper;
@@ -124,7 +124,7 @@ sub prepare {
     $cmd;
 }
 
-sub opt_map {
+sub options_mapper {
     my ($self) = @_;
     my %opt = $self->global_options;
     get_opt(
