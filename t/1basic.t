@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Test::More tests => 11;
+use Test::More;
 use lib qw(t/lib);
 use CLITest;
 
@@ -68,3 +68,5 @@ is_deeply ([MyApp->commands],
     is_deeply(clicheck, [qw(MyApp::Test::Cascading::Infinite::Subcommands MyApp::Test::Cascading::Infinite::Subcommands::run), "shelling", "help"],
               'cascading with options');
 }
+
+done_testing(11);
