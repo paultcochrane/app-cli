@@ -120,22 +120,13 @@ sub prepare {
     my $class = shift;
     my $data = {};
 
-    $class->get_opt(
-        [qw(no_ignore_case bundling pass_through)],
-        opt_map($data, $class->global_options)
-    );
+    $class->get_opt([qw(no_ignore_case bundling pass_through)], opt_map($data, $class->global_options));
 
     my $cmd = $class->get_cmd(shift @ARGV, @_, %$data);
 
-    while ($cmd->cascadable) {
-      $cmd = $cmd->cascading;
-    }
+    while ($cmd->cascadable) { $cmd = $cmd->cascading }
 
-
-    $class->get_opt(
-        [qw(no_ignore_case bundling)],
-        opt_map($cmd, $cmd->command_options)
-    );
+    $class->get_opt([qw(no_ignore_case bundling)], $cmd->options_mapper);
 
     $cmd = $cmd->subcommand;
 
@@ -160,7 +151,6 @@ sub get_opt {
     };
     die $class->error_opt ($err) unless $p->getoptions(@_);
 }
-
 
 sub opt_map {
     my ($self, %opt) = @_;

@@ -44,7 +44,11 @@ sub new {
     bless {@_}, $class;
 }
 
-
+sub options_mapper {
+  my ($self) = @_;
+  my %opts = $self->command_options();
+  return map { $_ => ref($opts{$_}) ? $opts{$_} : \$self->{$opts{$_}} } keys %opts;
+}
 
 sub command_options {
     ((map { $_ => $_ } $_[0]->subcommands), $_[0]->options);
