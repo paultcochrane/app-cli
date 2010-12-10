@@ -21,6 +21,9 @@ App::CLI - Dispatcher module for command line interface programs
 
     package MyApp::List;
     use base qw(App::CLI::Command); # any (SUB)COMMAND of your App
+                                    # keep your classes loose coupling
+                                    # don't just use base qw(MyApp) here 
+                                    # and use base qw(App::CLI App::CLI::Command) in MyApp
 
     use constant options => qw( 
         "h|help"   => "help",
