@@ -44,7 +44,7 @@ sub commands {
 
 =head3 files()
 
-return module files of subcommans of first level
+return module files of subcommands of first level
 
 =cut
 

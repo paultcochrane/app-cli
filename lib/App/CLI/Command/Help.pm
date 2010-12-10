@@ -56,7 +56,7 @@ sub run {
         if ($topic eq 'commands') {
             $self->brief_usage ($_) for $self->app->files;
         }
-        elsif (my $cmd = eval { $self->app->get_cmd ($topic) }) {
+        elsif (my $cmd = eval { $self->app->cascading($topic) }) {
             $cmd->usage(1);
         }
         elsif (my $file = $self->_find_topic($topic)) {

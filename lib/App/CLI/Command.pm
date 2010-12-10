@@ -51,6 +51,7 @@ sub options_mapper {
     [qw(no_ignore_case bundling)],
     map { $_ => ref($opts{$_}) ? $opts{$_} : \$self->{$opts{$_}} } keys %opts
   );
+  $self;
 }
 
 sub command_options {

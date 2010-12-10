@@ -34,6 +34,12 @@ is_deeply ([MyApp->commands],
 }
 
 {
+    local *ARGV = [qw(test --dispatch)];
+    MyApp->dispatch(foo => "bar");
+    is_deeply( clicheck, [qw(MyApp::Test MyApp::Test::run), "bar"], "dispatch with args");
+}
+
+{
     local *ARGV = ['test', 'arg', '--verbose'];
     MyApp->dispatch;
     is_deeply (clicheck, [qw(MyApp::Test MyApp::Test::run), 'v', 'arg'], 'with option and arg');
@@ -69,4 +75,4 @@ is_deeply ([MyApp->commands],
               'cascading with options');
 }
 
-done_testing(11);
+done_testing;

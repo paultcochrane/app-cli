@@ -116,12 +116,9 @@ sub new {
 
 sub prepare {
     my $self = shift;
-    $self->options_mapper;
-    my $cmd = ref($self)->get_cmd(shift @ARGV, @_, %{$self});
+    my $cmd = $self->options_mapper->cascading;
     while ($cmd->cascadable) { $cmd = $cmd->cascading }
-    $cmd->options_mapper;
-    $cmd = $cmd->subcommand;
-    $cmd;
+    $cmd->options_mapper->subcommand;
 }
 
 sub options_mapper {
@@ -131,6 +128,7 @@ sub options_mapper {
       [qw(no_ignore_case bundling pass_through)],
       map { $_ => ref($opt{$_}) ? $opt{$_} : \$self->{$opt{$_}}} keys %opt
     );
+    $self;
 }
 
 =head3
@@ -139,7 +137,7 @@ interface of dispatcher
 
 =cut
 
-sub dispatch { shift->new()->prepare(@_)->run_command(@ARGV) }
+sub dispatch { shift->new(@_)->prepare()->run_command(@ARGV) }
 
 sub error_cmd { "Command not recognized, try $0 --help.\n"; }
 
@@ -151,23 +149,22 @@ return subcommand of first level via $ARGV[0]
 
 =cut
 
-sub get_cmd {
-    my ($class, $cmd, @arg) = @_;
-    die $class->error_cmd unless $cmd && $cmd =~ m/^[?a-z]+$/;
+sub cascading {
+    my ($self) = @_;
+    my $cmd = shift @ARGV;
+    die $self->error_cmd unless $cmd && $cmd =~ m/^[?a-z]+$/;
 
-    my %alias = $class->alias;
+    my %alias = $self->alias;
     $cmd = exists($alias{$cmd}) ? ucfirst($alias{$cmd}) : ucfirst($cmd);
-    my $pkg = join('::', $class, $cmd);
-    my $file = "$pkg.pm";
-    $file =~ s!::!/!g;
-    eval { require $file; };
+    my $pkg = join('::', ref $self, $cmd);
+    eval "use $pkg";
 
     unless ($pkg->can('run')) {
-      warn $@ if $@ and exists $INC{$file};
-      die $class->error_cmd;
+      warn $@ if $@ and exists ${ref($self)."::"}{$cmd."::"};
+      die $self->error_cmd;
     } else {
-      $cmd = $pkg->new(@arg);
-      $cmd->app($class);
+      $cmd = $pkg->new(%{$self});
+      $cmd->app(ref($self));
       return $cmd;
     }
 }
