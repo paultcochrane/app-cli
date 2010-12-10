@@ -56,7 +56,7 @@ sub run {
         if ($topic eq 'commands') {
             $self->brief_usage ($_) for $self->app->files;
         }
-        elsif (my $cmd = $self->app->new->cascadable($topic) ) {
+        elsif (my $cmd = $self->app->new->root_cascadable($topic) ) {
           print $cmd->new->usage(1);
         }
         elsif (my $file = $self->_find_topic($topic)) {
