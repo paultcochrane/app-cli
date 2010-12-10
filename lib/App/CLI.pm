@@ -151,22 +151,33 @@ return subcommand of first level via $ARGV[0]
 
 sub cascading {
     my ($self) = @_;
-    my $cmd = shift @ARGV;
-    die $self->error_cmd unless $cmd && $cmd =~ m/^[?a-z]+$/;
-
-    my %alias = $self->alias;
-    $cmd = exists($alias{$cmd}) ? ucfirst($alias{$cmd}) : ucfirst($cmd);
-    my $pkg = join('::', ref $self, $cmd);
-    eval "use $pkg";
-
-    unless ($pkg->can('run')) {
-      warn $@ if $@ and exists ${ref($self)."::"}{$cmd."::"};
+    unless (my $pkg = $self->cascadable) {
+      warn $@ if $@;
       die $self->error_cmd;
     } else {
-      $cmd = $pkg->new(%{$self});
+      shift @ARGV;
+      my $cmd = $pkg->new(%{$self});
       $cmd->app(ref($self));
       return $cmd;
     }
+}
+
+sub cascadable {
+  my ($self, $subcmd) = @_;
+  $subcmd //= $ARGV[0];
+  die $self->error_cmd unless $subcmd && $subcmd =~ m/^[?a-z]+$/;
+
+  my %alias = $self->alias;
+  $subcmd = $alias{$subcmd} ? $alias{$subcmd} : $subcmd;
+
+  for ($self->commands) {
+    no strict "refs";
+    eval "require ".ref($self)."::".ucfirst($_);
+    if ($subcmd eq $_ && exists ${ref($self)."::"}{ucfirst($_)."::"}) {
+      return ref($self)."::".ucfirst($_);
+    }
+  }
+  return undef;
 }
 
 =head1 SEE ALSO
