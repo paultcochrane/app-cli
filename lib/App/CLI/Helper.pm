@@ -3,18 +3,18 @@ use Getopt::Long;
 
 sub import {
   my $caller = caller;
-  for (qw(get_opt commands files)) {
+  for (qw(getoptions commands files)) {
     *{$caller."::$_"} = *$_;
   }
 }
 
-=head3 get_opt([@config], %opt_map)
+=head3 getoptions([@config], %opt_map)
 
     give options map, process by Getopt::Long::Parser
 
 =cut
 
-sub get_opt {
+sub getoptions {
     my $config = shift;
     my $p = Getopt::Long::Parser->new;
     $p->configure(@$config);

@@ -127,7 +127,7 @@ sub prepare {
 sub global_options_mapper {
     my ($self) = @_;
     my %opt = $self->global_options;
-    get_opt(
+    getoptions(
       [qw(no_ignore_case bundling pass_through)],
       map { $_ => ref($opt{$_}) ? $opt{$_} : \$self->{$opt{$_}}} keys %opt
     );
@@ -146,7 +146,7 @@ sub error_cmd { "Command not recognized, try $0 --help.\n"; }
 
 sub error_opt { $_[1] }
 
-=head3 get_cmd($cmd, @arg)
+=head3 root_cascading()
 
 return subcommand of first level via $ARGV[0]
 
@@ -165,6 +165,12 @@ sub root_cascading {
     }
 }
 
+=head3 root_cascadable()
+
+return package name of subcommand of first level via $ARGV[0] or first argument
+
+=cut
+
 sub root_cascadable {
   my ($self, $subcmd) = @_;
   $subcmd //= $ARGV[0];
@@ -181,6 +187,14 @@ sub root_cascadable {
     }
   }
   return undef;
+}
+
+
+# back-compatible
+sub get_cmd {
+  my ($class, $cmd) = @_;
+  $cmd = $class->new->root_cascadable($cmd);
+  $cmd->new if $cmd;
 }
 
 =head1 SEE ALSO

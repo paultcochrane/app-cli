@@ -47,7 +47,7 @@ sub new {
 sub options_mapper {
   my ($self) = @_;
   my %opts = $self->command_options();
-  get_opt(
+  getoptions(
     [qw(no_ignore_case bundling)],
     map { $_ => ref($opts{$_}) ? $opts{$_} : \$self->{$opts{$_}} } keys %opts
   );
