@@ -116,12 +116,12 @@ sub new {
 
 sub prepare {
     my $self = shift;
-    my $cmd = $self->options_mapper->cascading;
+    my $cmd = $self->global_options_mapper->cascading;
     while ($cmd->cascadable) { $cmd = $cmd->cascading }
     $cmd->options_mapper->subcommand;
 }
 
-sub options_mapper {
+sub global_options_mapper {
     my ($self) = @_;
     my %opt = $self->global_options;
     get_opt(
