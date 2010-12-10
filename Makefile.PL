@@ -13,6 +13,7 @@ requires(
     'Locale::Maketext::Simple' => 0,
     'Getopt::Long'             => '2.35',
     'Pod::Simple::Text'        => 0,
+    'Rubyish::Attribute'       => 0,
 );
 
 auto_install();

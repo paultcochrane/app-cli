@@ -1,9 +1,11 @@
-package App::CLI::Command;
 use strict;
 use warnings;
+
+package App::CLI::Command;
 use Locale::Maketext::Simple;
-use Carp ();
+use Carp;
 use App::CLI::Helper;
+use Rubyish::Attribute;
 
 =head1 NAME
 
@@ -33,11 +35,14 @@ App::CLI::Command - Base class for App::CLI commands
 
 =head1 DESCRIPTION
 
+The base class of all subcommand
 
 =cut
 
 use constant subcommands => ();
 use constant options => ();
+
+attr_accessor "app";
 
 sub new {
     my $class = shift;
@@ -125,13 +130,6 @@ sub cascadable {
     }
   }
   return undef
-}
-
-sub app {
-    my $self = shift;
-    die Carp::longmess "not a ref" unless ref $self;
-    $self->{app} = shift if @_;
-    return ref ($self->{app}) || $self->{app};
 }
 
 =head3 brief_usage ($file)

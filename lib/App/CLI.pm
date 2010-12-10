@@ -104,6 +104,8 @@ C<App::CLI> dispatches CLI (command line interface) based commands
 into command classes.  It also supports subcommand and per-command
 options.
 
+The package is the base class of dispatcher.
+
 =cut
 
 use App::CLI::Helper;

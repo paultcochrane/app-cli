@@ -1,8 +1,9 @@
-package App::CLI::Command::Help;
 use strict;
 use warnings;
-use base qw/App::CLI::Command/;
-use File::Find qw(find);
+
+package App::CLI::Command::Help;
+use base qw(App::CLI::Command);
+use File::Find;
 use Locale::Maketext::Simple;
 use Pod::Simple::Text;
 
