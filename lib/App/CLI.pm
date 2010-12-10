@@ -116,7 +116,7 @@ sub new {
 
 sub prepare {
     my $self = shift;
-    my $cmd = $self->global_options_mapper->cascading;
+    my $cmd = $self->global_options_mapper->root_cascading;
     while ($cmd->cascadable) { $cmd = $cmd->cascading }
     $cmd->options_mapper->subcommand;
 }
@@ -149,9 +149,9 @@ return subcommand of first level via $ARGV[0]
 
 =cut
 
-sub cascading {
+sub root_cascading {
     my ($self) = @_;
-    unless (my $pkg = $self->cascadable) {
+    unless (my $pkg = $self->root_cascadable) {
       warn $@ if $@;
       die $self->error_cmd;
     } else {
@@ -162,7 +162,7 @@ sub cascading {
     }
 }
 
-sub cascadable {
+sub root_cascadable {
   my ($self, $subcmd) = @_;
   $subcmd //= $ARGV[0];
   die $self->error_cmd unless $subcmd && $subcmd =~ m/^[?a-z]+$/;
