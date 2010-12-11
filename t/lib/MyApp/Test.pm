@@ -1,5 +1,8 @@
-package MyApp::Test;
+use 5.010;
 use strict;
+use warnings;
+
+package MyApp::Test;
 use base qw(App::CLI::Command);
 use CLITest;
 use constant subcommands => qw(hate Cascading);
@@ -15,15 +18,6 @@ sub run {
     } else {
       cliack($self->{verbose} ? 'v' : '', @_);
     }
-}
-
-package MyApp::Test::hate;
-use base 'MyApp::Test';
-use CLITest;
-
-sub run {
-    my $self = shift;
-    cliack($self->{verbose} ? 'v' : '', 'hate', @_);
 }
 
 1;
