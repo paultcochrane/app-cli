@@ -1,0 +1,9 @@
+=head1 NAME
+
+MyApp::Documents::Intro - Introduction to MyApp
+
+=head1 DESCRIPTION
+
+description
+
+1;

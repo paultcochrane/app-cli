@@ -4,6 +4,7 @@ use warnings;
 package App::CLI::Command::Help;
 use base qw(App::CLI::Command);
 use File::Find;
+use Pod::Find qw(pod_find);
 use Locale::Maketext::Simple;
 use Pod::Simple::Text;
 
@@ -60,7 +61,7 @@ sub run {
         elsif (my $cmd = $self->app->new->root_cascadable($topic) ) {
           print $cmd->new->usage(1);
         }
-        elsif (my $file = $self->_find_topic($topic)) {
+        elsif (my $file = $self->find_topic($topic)) {
             open my $fh, '<:utf8', $file or die $!;
             require Pod::Simple::Text;
             my $parser = Pod::Simple::Text->new;
@@ -83,34 +84,19 @@ sub help_base {
     return $self->app."::Help";
 }
 
-my ($inc, @prefix);
-sub _find_topic {
+
+sub find_topic {
     my ($self, $topic) = @_;
 
-    if (!$inc) {
-        my $pkg = __PACKAGE__;
-        $pkg =~ s{::}{/};
-        $inc = substr( __FILE__, 0, -length("$pkg.pm") );
+    my $pkg = ref($self);
+    $pkg =~ s{::}{/};
+    my $inc = $INC{"$pkg.pm"};
+    $inc =~ s/$pkg\.pm//;
+    my $base = $self->help_base;
+    $base =~ s{::}{/};
 
-        my $base = $self->help_base;
-        @prefix = (loc($base));
-        $prefix[0] =~ s{::}{/}g;
-        $base =~ s{::}{/}g;
-        push @prefix, $base if $prefix[0] ne $base;
-    }
-
-    foreach my $dir ($inc, @INC) {
-        foreach my $prefix (@prefix) {
-            foreach my $basename (ucfirst(lc($topic)), uc($topic)) {
-                foreach my $ext ('pod', 'pm') {
-                    my $file = "$dir/$prefix/$basename.$ext";
-                    return $file if -f $file;
-                }
-            }
-        }
-    }
-
-    return;
+    my %pods = reverse pod_find({},"$inc/$base");
+    return $pods{ucfirst($topic)};
 }
 
 1;

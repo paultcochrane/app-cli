@@ -75,4 +75,10 @@ is_deeply ([MyApp->commands],
               'cascading with options');
 }
 
+{
+    local *ARGV = [qw(help)];
+    like MyApp->new()->prepare()->find_topic("intro"), qr(Intro\.pod$)
+    => "find topic of help";
+}
+
 done_testing;
