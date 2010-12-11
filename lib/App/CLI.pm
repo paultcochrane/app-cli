@@ -161,9 +161,7 @@ sub root_cascading {
       die $self->error_cmd;
     } else {
       shift @ARGV;
-      my $cmd = $pkg->new(%{$self});
-      $cmd->app(ref($self));
-      return $cmd;
+      $pkg->new(%{$self})->app(ref($self));
     }
 }
 
