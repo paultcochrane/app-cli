@@ -27,14 +27,14 @@ App::CLI::Command::Help
 
 Your command class should be capitalized.
 
-To add help message , you just add pod in command class:
+To add help message , you just add PODs in command class:
 
-    package YourApp::Command::Foo;
+    package MyApp::Command::Foo;
 
 
     =head1 NAME
 
-    YourApp::Command::Foo - execute foo
+    MyApp::Command::Foo - execute foo
 
     =head1 DESCRIPTION
 
@@ -45,6 +45,26 @@ To add help message , you just add pod in command class:
     ....
 
     =cut
+
+The message would show when users invoke
+
+    $ myapp help foo
+
+To add help message on spcecial topic rather than specific command, append PODs to lib/MyApp/Help/Bar.pod
+
+    =head1 MyApp::Help::Bar
+
+    blah
+
+    1;
+
+The message would show when users invoke
+
+    $ myapp help bar
+
+If you want to put the PODs in lib/MyApp/Documents/Bar.pod, attaching one line in MyApp::Command::Help makes it possible
+
+    sub help_base { "MyApp::Documents" }
 
 =cut
 
