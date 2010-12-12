@@ -109,4 +109,12 @@ is_deeply ([MyApp->commands],
     => "help method of self";
 }
 
+{
+    local *ARGV = [qw(help)];
+    my $handler = MyApp->new->prepare;
+    my $file = $handler->find_topic(qw(intro concept));
+    like $file, qr(Intro/Concept\.pod$)
+    => "find subtopic of help";
+}
+
 done_testing;

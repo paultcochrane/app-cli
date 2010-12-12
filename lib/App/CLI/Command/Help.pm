@@ -103,14 +103,15 @@ sub run {
 sub help_base { shift->app."::Help" }
 
 sub find_topic {
-    my ($self, $topic) = @_;
+    my $self = shift;
+    my $topic = join "::", map {ucfirst($_)} @_;
 
     my $lib = $self->lib();
     my $base = $self->help_base;
     $base =~ s{::}{/}g;
 
     my %pods = reverse pod_find({},"$lib/$base");
-    return $pods{ucfirst($topic)};
+    return $pods{$topic};
 }
 
 sub parse_pod {
@@ -119,7 +120,6 @@ sub parse_pod {
     my $buffer;
     $parser->output_string(\$buffer);
     $parser->parse_file($file);
-    # $buffer =~ s/^NAME\s+(.*?)::Help::\S+ - (.+)\s+DESCRIPTION/    $2:/;
     $self->loc_text($buffer);
 }
 

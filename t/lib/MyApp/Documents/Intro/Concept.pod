@@ -1,0 +1,11 @@
+=head1 NAME
+
+MyApp::Documents::Intro::Concept - Introduction of Concept to MyApp
+
+=head1 DESCRIPTION
+
+description
+
+=cut
+
+1;
