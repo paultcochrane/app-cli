@@ -3,7 +3,7 @@ use Getopt::Long;
 
 sub import {
   my $caller = caller;
-  for (qw(getoptions commands files)) {
+  for (qw(getoptions commands files lib)) {
     *{$caller."::$_"} = *$_;
   }
 }
@@ -57,5 +57,19 @@ sub files {
     return sort glob("$dir/*.pm");
 }
 
+=head3 lib()
+
+return the lib root the module is in
+
+=cut
+
+sub lib {
+    my $self = shift;
+    my $pkg = ref($self);
+    $pkg =~ s{::}{/};
+    my $lib = $INC{"$pkg.pm"};
+    $lib =~ s/$pkg\.pm//;
+    return $lib;
+}
 
 1;

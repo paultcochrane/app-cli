@@ -104,18 +104,14 @@ sub help_base {
     return $self->app."::Help";
 }
 
-
 sub find_topic {
     my ($self, $topic) = @_;
 
-    my $pkg = ref($self);
-    $pkg =~ s{::}{/};
-    my $inc = $INC{"$pkg.pm"};
-    $inc =~ s/$pkg\.pm//;
+    my $lib = $self->lib();
     my $base = $self->help_base;
     $base =~ s{::}{/};
 
-    my %pods = reverse pod_find({},"$inc/$base");
+    my %pods = reverse pod_find({},"$lib/$base");
     return $pods{ucfirst($topic)};
 }
 
