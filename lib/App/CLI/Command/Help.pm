@@ -90,10 +90,10 @@ sub run {
     } elsif ($app->root_cascadable($topics[0])) {
       local *ARGV = [@topics];
       print $self->parse_pod($app->prepare->filename);
-    } elsif (my $file = $self->find_topic($topics[0])) {
+    } elsif (my $file = $self->find_topic(@topics)) {
       print $self->parse_pod($file);
     } else {
-      die loc("Cannot find help topic '%1'.\n", $topics[0]);
+      die loc("Cannot find help topic '%1'.\n", join "::", map {ucfirst($_)} @topics);
     }
 
     return;
