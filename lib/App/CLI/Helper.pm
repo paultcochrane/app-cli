@@ -78,7 +78,7 @@ return the lib root the module is in
 sub lib {
     my $self = shift;
     my $pkg = ref($self);
-    $pkg =~ s{::}{/};
+    $pkg =~ s{::}{/}g;
     my $lib = $INC{"$pkg.pm"};
     $lib =~ s/$pkg\.pm//;
     return $lib;

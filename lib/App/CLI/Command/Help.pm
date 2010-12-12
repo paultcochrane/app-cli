@@ -107,7 +107,7 @@ sub find_topic {
 
     my $lib = $self->lib();
     my $base = $self->help_base;
-    $base =~ s{::}{/};
+    $base =~ s{::}{/}g;
 
     my %pods = reverse pod_find({},"$lib/$base");
     return $pods{ucfirst($topic)};
