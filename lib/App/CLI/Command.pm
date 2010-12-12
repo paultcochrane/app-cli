@@ -17,6 +17,12 @@ App::CLI::Command - Base class for App::CLI commands
     package MyApp::List;
     use base qw(App::CLI::Command);
 
+    use constant subcommands => qw(User Nickname);
+
+    use constant alias => (
+        'ni'        => 'nickname',
+    );
+
     use constant options => (
         'verbose'   => 'verbose',
         'n|name=s'  => 'name',
