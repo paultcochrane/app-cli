@@ -79,6 +79,14 @@ If you want to put the PODs in lib/MyApp/Documents/Bar.pod, attaching one line i
 
 Otherwise, normally you can leave your Help subcommands blank except use base qw(App::CLI::Command::Help);
 
+To see PODs of subsubcomand, e.g. package MyApp::Command::Server::Stop, invoke
+
+    $ myapp help server stop
+
+Deeper construction of PODS is also allowed. to see lib/MyApp/Help/Hello/World.pod, invoke
+
+    $ myapp help hello world
+
 =cut
 
 sub run {
