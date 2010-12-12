@@ -1,9 +1,21 @@
 package App::CLI::Helper;
 use Getopt::Long;
 
+=head1 NAME
+
+App::CLI::Helper
+
+=head1 DESCRIPTION
+
+internal helper functions
+
+=head2 Functions
+
+=cut
+
 sub import {
   my $caller = caller;
-  for (qw(getoptions commands files lib parse_pod)) {
+  for (qw(getoptions commands files lib)) {
     *{$caller."::$_"} = *$_;
   }
 }
@@ -28,7 +40,7 @@ sub getoptions {
 
 =head3 commands()
 
-
+return a list of subcommands of $self
 
 =cut
 
@@ -44,7 +56,7 @@ sub commands {
 
 =head3 files()
 
-return module files of subcommands of first level
+return module files of subcommands of $self
 
 =cut
 
