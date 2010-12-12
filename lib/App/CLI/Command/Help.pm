@@ -82,22 +82,20 @@ Otherwise, normally you can leave your Help subcommands blank except use base qw
 =cut
 
 sub run {
-    my $self = shift;
-    my @topics = @_;
+    my ($self, @topics) = @_;
+    my $app = $self->app->new;
 
-    push @topics, 'commands' unless (@topics);
-
-    for my $topic (@topics) {
-        if ($topic eq 'commands') {
-            $self->brief_usage ($_) for $self->app->files;
-        } elsif (my $cmd = $self->app->new->root_cascadable($topic) ) {
-            print $self->parse_pod($cmd->new->filename);
-        } elsif (my $file = $self->find_topic($topic)) {
-            print $self->parse_pod($file)
-        } else {
-            die loc("Cannot find help topic '%1'.\n", $topic);
-        }
+    if (scalar(@topics) == 0) {
+      $self->brief_usage($_) for $self->app->files;
+    } elsif ($app->root_cascadable($topics[0])) {
+      local *ARGV = [@topics];
+      print $self->parse_pod($app->prepare->filename);
+    } elsif (my $file = $self->find_topic($topics[0])) {
+      print $self->parse_pod($file);
+    } else {
+      die loc("Cannot find help topic '%1'.\n", $topics[0]);
     }
+
     return;
 }
 
