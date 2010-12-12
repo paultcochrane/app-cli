@@ -43,6 +43,10 @@ To add help message , you just add PODs in command class:
 
     =head1 USAGE
 
+    blah
+
+    =head1 OPTIONS
+
     ....
 
     =cut
@@ -53,9 +57,15 @@ The message would show when users invoke
 
 To add help message on spcecial topic rather than specific command, append PODs to lib/MyApp/Help/Bar.pod
 
-    =head1 MyApp::Help::Bar
+    =head1 NAME
+    
+    MyApp::Help::Bar
+
+    =head1 DESCRIPTION
 
     blah
+
+    =cut
 
     1;
 
@@ -66,6 +76,8 @@ The message would show when users invoke
 If you want to put the PODs in lib/MyApp/Documents/Bar.pod, attaching one line in MyApp::Command::Help makes it possible
 
     sub help_base { "MyApp::Documents" }
+
+Otherwise, normally you can leave your Help subcommands blank except use base qw(App::CLI::Command::Help);
 
 =cut
 
