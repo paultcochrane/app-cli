@@ -1,3 +1,4 @@
+use 5.010;
 use strict;
 use warnings;
 
@@ -77,30 +78,17 @@ sub run {
     for my $topic (@topics) {
         if ($topic eq 'commands') {
             $self->brief_usage ($_) for $self->app->files;
-        }
-        elsif (my $cmd = $self->app->new->root_cascadable($topic) ) {
-            print $cmd->new->usage(1);
-        }
-        elsif (my $file = $self->find_topic($topic)) {
+        } elsif (my $cmd = $self->app->new->root_cascadable($topic) ) {
+            print $self->parse_pod($cmd->new->filename);
+        } elsif (my $file = $self->find_topic($topic)) {
             print $self->parse_pod($file)
-        }
-        else {
+        } else {
             die loc("Cannot find help topic '%1'.\n", $topic);
         }
     }
     return;
 }
 
-sub parse_pod {
-    my ($self, $file) = @_;
-    # open my $fh, '<:utf8', $file or die $!;
-    my $parser = Pod::Simple::Text->new;
-    my $buffer;
-    $parser->output_string(\$buffer);
-    $parser->parse_file($file);
-    $buffer =~ s/^NAME\s+(.*?)::Help::\S+ - (.+)\s+DESCRIPTION/    $2:/;
-    $self->loc_text($buffer);
-}
 
 sub help_base { shift->app."::Help" }
 
@@ -113,6 +101,16 @@ sub find_topic {
 
     my %pods = reverse pod_find({},"$lib/$base");
     return $pods{ucfirst($topic)};
+}
+
+sub parse_pod {
+    my ($self, $file) = @_;
+    my $parser = Pod::Simple::Text->new;
+    my $buffer;
+    $parser->output_string(\$buffer);
+    $parser->parse_file($file);
+    # $buffer =~ s/^NAME\s+(.*?)::Help::\S+ - (.+)\s+DESCRIPTION/    $2:/;
+    $self->loc_text($buffer);
 }
 
 1;

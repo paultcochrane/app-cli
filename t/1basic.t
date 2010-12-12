@@ -77,17 +77,21 @@ is_deeply ([MyApp->commands],
 
 {
     local *ARGV = [qw(help)];
-    like MyApp->new()->prepare()->find_topic("intro"), qr(Intro\.pod$)
-    => "find topic of help";
-}
-
-{
-    local *ARGV = [qw(help)];
     my $handler = MyApp->new()->prepare();
     my $file = $handler->find_topic("intro");
+
+    like $file, qr(Intro\.pod$)
+    => "find topic of help";
+
     my $output = $handler->parse_pod($file);
+
     is $output, "NAME\n\n    MyApp::Documents::Intro - Introduction to MyApp\n\nDESCRIPTION\n\n    description\n\n"
     => "verify pod output";
+
+    local *ARGV = [qw(test)];
+    is $handler->parse_pod(MyApp->new()->prepare->filename),
+       "NAME\n\n    MyApp::Test - Intro to MyApp\n\nDESCRIPTION\n\n    blah\n\nUSAGE\n\n    blah\n\n"
+    => "verify usage output"
 }
 
 done_testing;

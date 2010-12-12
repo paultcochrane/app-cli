@@ -3,7 +3,7 @@ use Getopt::Long;
 
 sub import {
   my $caller = caller;
-  for (qw(getoptions commands files lib)) {
+  for (qw(getoptions commands files lib parse_pod)) {
     *{$caller."::$_"} = *$_;
   }
 }

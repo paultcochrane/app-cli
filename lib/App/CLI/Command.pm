@@ -155,30 +155,6 @@ sub brief_usage {
     close $podfh;
 }
 
-=head3 usage ($want_detail)
-
-Display usage.  If C<$want_detail> is true, the C<DESCRIPTION>
-section is displayed as well.
-
-=cut
-
-sub usage {
-    my ($self, $want_detail) = @_;
-    my $fname = $self->filename;
-    my ($cmd) = $fname =~ m{\W(\w+)\.pm$};
-    require Pod::Simple::Text;
-    my $parser = Pod::Simple::Text->new;
-    my $buf;
-    $parser->output_string(\$buf);
-    $parser->parse_file($fname);
-
-    my $base = $self->app;
-    $buf =~ s/\Q$base\E::(\w+)/\l$1/g;
-    $buf =~ s/^AUTHORS.*//sm;
-    $buf =~ s/^DESCRIPTION.*//sm unless $want_detail;
-    print $self->loc_text($buf);
-}
-
 =head3 loc_text $text
 
 Localizes the body of (formatted) text in $text, and returns the

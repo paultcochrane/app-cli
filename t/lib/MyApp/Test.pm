@@ -20,4 +20,18 @@ sub run {
     }
 }
 
+=head1 NAME
+
+MyApp::Test - Intro to MyApp
+
+=head1 DESCRIPTION
+
+blah
+
+=head1 USAGE
+
+blah
+
+=cut
+
 1;
