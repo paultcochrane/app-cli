@@ -202,6 +202,19 @@ sub filename {
     return $INC{"$fname.pm"};
 }
 
+=head3 help
+
+return PODs of the command module
+
+=cut
+
+sub help {
+    my $self = shift;
+    $self->app
+         ->new->root_cascadable("help")
+         ->new->parse_pod($self->filename);
+}
+
 
 =head1 SEE ALSO
 

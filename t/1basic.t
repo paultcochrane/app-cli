@@ -94,4 +94,12 @@ is_deeply ([MyApp->commands],
     => "verify usage output"
 }
 
+{
+    local *ARGV = [qw(test)];
+    my $handler = MyApp->new()->prepare();
+    is $handler->help(),
+       "NAME\n\n    MyApp::Test - Intro to MyApp\n\nDESCRIPTION\n\n    blah\n\nUSAGE\n\n    blah\n\n"
+    => "help method of self";
+}
+
 done_testing;
