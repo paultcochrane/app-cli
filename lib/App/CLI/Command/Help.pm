@@ -99,10 +99,7 @@ sub run {
     return;
 }
 
-sub help_base {
-    my $self = shift;
-    return $self->app."::Help";
-}
+sub help_base { shift->app."::Help" }
 
 sub find_topic {
     my ($self, $topic) = @_;
