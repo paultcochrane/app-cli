@@ -144,65 +144,6 @@ sub cascadable {
   return undef;
 }
 
-=head3 brief_usage ($file)
-
-Display an one-line brief usage of the command object.  Optionally, a file
-could be given to extract the usage from the POD.
-
-=cut
-
-sub brief_usage {
-    my ($self, $file) = @_;
-    open my ($podfh), '<', ($file || $self->filename) or return;
-    local $/=undef;
-    my $buf = <$podfh>;
-    my $base = $self->app;
-    if($buf =~ /^=head1\s+NAME\s*\Q$base\E::(\w+ - .+)$/m) {
-        my ($cmd, $desc) = split "-", lc $1;
-        chomp $cmd; chomp $desc;
-        $cmd = substr $cmd."           ", 0, 10;
-        print "   ", $cmd, loc($desc), "\n";
-    } else {
-        my $cmd = $file ||$self->filename;
-        $cmd =~ s/^(?:.*)\/(.*?).pm$/$1/;
-        print "   ", lc($cmd), " - ",loc("undocumented")."\n";
-    }
-    close $podfh;
-}
-
-=head3 loc_text $text
-
-Localizes the body of (formatted) text in $text, and returns the
-localized version.
-
-=cut
-
-sub loc_text {
-    my $self = shift;
-    my $buf = shift;
-
-    my $out = "";
-    foreach my $line (split(/\n\n+/, $buf, -1)) {
-        if (my @lines = $line =~ /^( {4}\s+.+\s*)$/mg) {
-            foreach my $chunk (@lines) {
-                $chunk =~ /^(\s*)(.+?)( *)(: .+?)?(\s*)$/ or next;
-                my $spaces = $3;
-                my $loc = $1 . loc($2 . ($4||'')) . $5;
-                $loc =~ s/: /$spaces: / if $spaces;
-                $out .= $loc . "\n";
-            }
-            $out .= "\n";
-        }
-        elsif ($line =~ /^(\s+)(\w+ - .*)$/) {
-            $out .= $1 . loc($2) . "\n\n";
-        }
-        elsif (length $line) {
-            $out .= loc($line) . "\n\n";
-        }
-    }
-    return $out;
-}
-
 =head3 filename
 
 Return the filename for the command module.
