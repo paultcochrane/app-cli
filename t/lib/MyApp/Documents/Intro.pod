@@ -6,4 +6,6 @@ MyApp::Documents::Intro - Introduction to MyApp
 
 description
 
+=cut
+
 1;

@@ -74,29 +74,32 @@ sub run {
 
     push @topics, 'commands' unless (@topics);
 
-    foreach my $topic (@topics) {
+    for my $topic (@topics) {
         if ($topic eq 'commands') {
             $self->brief_usage ($_) for $self->app->files;
         }
         elsif (my $cmd = $self->app->new->root_cascadable($topic) ) {
-          print $cmd->new->usage(1);
+            print $cmd->new->usage(1);
         }
         elsif (my $file = $self->find_topic($topic)) {
-            open my $fh, '<:utf8', $file or die $!;
-            require Pod::Simple::Text;
-            my $parser = Pod::Simple::Text->new;
-            my $buf;
-            $parser->output_string(\$buf);
-            $parser->parse_file($fh);
-
-            $buf =~ s/^NAME\s+(.*?)::Help::\S+ - (.+)\s+DESCRIPTION/    $2:/;
-            print $self->loc_text($buf);
+            print $self->parse_pod($file)
         }
         else {
             die loc("Cannot find help topic '%1'.\n", $topic);
         }
     }
     return;
+}
+
+sub parse_pod {
+    my ($self, $file) = @_;
+    # open my $fh, '<:utf8', $file or die $!;
+    my $parser = Pod::Simple::Text->new;
+    my $buffer;
+    $parser->output_string(\$buffer);
+    $parser->parse_file($file);
+    $buffer =~ s/^NAME\s+(.*?)::Help::\S+ - (.+)\s+DESCRIPTION/    $2:/;
+    $self->loc_text($buffer);
 }
 
 sub help_base { shift->app."::Help" }

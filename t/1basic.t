@@ -81,4 +81,13 @@ is_deeply ([MyApp->commands],
     => "find topic of help";
 }
 
+{
+    local *ARGV = [qw(help)];
+    my $handler = MyApp->new()->prepare();
+    my $file = $handler->find_topic("intro");
+    my $output = $handler->parse_pod($file);
+    is $output, "NAME\n\n    MyApp::Documents::Intro - Introduction to MyApp\n\nDESCRIPTION\n\n    description\n\n"
+    => "verify pod output";
+}
+
 done_testing;
