@@ -13,10 +13,20 @@ App::CLI - Dispatcher module for command line interface programs
     use base 'App::CLI';        # the DISPATCHER of your App
                                 # it's not necessary putting the dispather
                                 #  on the top level of your App
+    use constant alias => (
+      "ls"          => "list",  # dispatch $ myapp ls to MyApp::List
+    );
+    
+    use constant global_options => (
+      "help|h"      => "help",  # all subcommands will have option --help 
+    );
 
     package main;
 
-    MyApp->dispatch;            # call dispather in where you want
+    MyApp->dispatch(foo => "bar");  # call dispather in where you want
+                                    # with more info you want the subcommand see
+                                    # in this case, the subcommand would receive
+                                    # $self->{foo} as "bar" in its run()
 
 
     package MyApp::List;
@@ -26,9 +36,12 @@ App::CLI - Dispatcher module for command line interface programs
                                     # and use base qw(App::CLI App::CLI::Command) in MyApp
 
     use constant options => ( 
-        "h|help"   => "help",
-        "verbose"  => "verbose",
+        "verbose"   => "verbose",
         'n|name=s'  => 'name',
+    );
+
+    use constant alias => (
+        "ni"        => "nickname",  # dispatch $ myapp ls ni to MyApp::List::Nickname
     );
 
     use constant subcommands => qw(User Nickname type); # if you want subcommands
@@ -45,7 +58,8 @@ App::CLI - Dispatcher module for command line interface programs
 
         if ($self->{help}) {
             # if $ myapp list --help or $ $ myapp list -h
-            # just only output PODs
+            print $self->help();
+            # just only output PODs of this subcommand, MyApp::List
         } else {
             # do something when imvoking $ my app list 
             # without subcommand and --help
@@ -56,7 +70,7 @@ App::CLI - Dispatcher module for command line interface programs
     package MyApp::List::User;
     use base qw(App::CLI::Command);
     use constant options => (
-        "h|help"  =>  "help",
+        "v|verbose"  =>  "verbose",
     );
 
     sub run {
