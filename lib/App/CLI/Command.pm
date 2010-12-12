@@ -158,7 +158,10 @@ sub brief_usage {
     my $buf = <$podfh>;
     my $base = $self->app;
     if($buf =~ /^=head1\s+NAME\s*\Q$base\E::(\w+ - .+)$/m) {
-        print "   ",loc(lc($1)),"\n";
+        my ($cmd, $desc) = split "-", lc $1;
+        chomp $cmd; chomp $desc;
+        $cmd = substr $cmd."           ", 0, 10;
+        print "   ", $cmd, loc($desc), "\n";
     } else {
         my $cmd = $file ||$self->filename;
         $cmd =~ s/^(?:.*)\/(.*?).pm$/$1/;

@@ -5,6 +5,7 @@ use warnings;
 package App::CLI::Command::Help;
 use base qw(App::CLI::Command);
 use File::Find;
+use File::Basename;
 use Pod::Find qw(pod_find);
 use Locale::Maketext::Simple;
 use Pod::Simple::Text;
@@ -94,7 +95,9 @@ sub run {
     my $app = $self->app->new;
 
     if (scalar(@topics) == 0) {
+      say "All commands available are:";
       $self->brief_usage($_) for $self->app->files;
+      say "\nrun '".basename($0)." help <subcommand>' to see the usage of their subcommands";
     } elsif ($app->root_cascadable($topics[0])) {
       local *ARGV = [@topics];
       print $self->parse_pod($app->prepare->filename);
