@@ -144,21 +144,13 @@ could be given to extract the usage from the POD.
 
 sub brief_usage {
     my ($self, $file) = @_;
-    open my ($podfh), '<', ($file || $self->filename) or return;
-    local $/=undef;
-    my $buf = <$podfh>;
+    my $buf = $self->parse_pod($file);
     my $base = $self->app;
-    if($buf =~ /^=head1\s+NAME\s*\Q$base\E::(\w+ - .+)$/m) {
-        my ($cmd, $desc) = split "-", lc $1; chomp $cmd; chomp $desc;
-        $cmd = substr $cmd."           ", 0, 10;
-        return "   $cmd".loc($desc);
-    } else {
-        my $cmd = $file;
-        $cmd =~ s/^(?:.*)\/(.*?).pm$/$1/; 
-        $cmd = substr $cmd."           ", 0, 10;
-        return "   $cmd".loc(" undocumented");
-    }
-    close $podfh;
+    my $cmd = lc basename($file);
+    $cmd =~ s/\.pm$//g;
+    $cmd = substr $cmd."          ", 0, 11;
+    my $desc = ($buf =~ /^NAME\s*\Q$base\E::\w+ - (.+)$/m) ? $1 : "undocumented";
+    return  "   ".$cmd.loc($desc);
 }
 
 =head3 loc_text $text
