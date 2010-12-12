@@ -62,6 +62,13 @@ is_deeply ([MyApp->commands],
 }
 
 {
+    local *ARGV = [qw(te ca)];
+    MyApp->dispatch;
+    is_deeply (clicheck, [qw(MyApp::Test::Cascading MyApp::Test::Cascading::run)],
+               'alias of cascading subcommand');
+}
+
+{
     local *ARGV = [qw(test cascading infinite)];
     MyApp->dispatch;
     is_deeply (clicheck, [qw(MyApp::Test::Cascading::Infinite MyApp::Test::Cascading::Infinite::run)],

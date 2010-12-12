@@ -41,6 +41,7 @@ The base class of all subcommand
 
 use constant subcommands => ();
 use constant options => ();
+use constant alias => ();
 
 attr_accessor "app";
 
@@ -122,6 +123,10 @@ otherwise, return undef
 
 sub cascadable {
   my $self = shift;
+
+  my %alias = $self->alias;
+  $ARGV[0] = $alias{$ARGV[0]} ? $alias{$ARGV[0]} : $ARGV[0] if $ARGV[0];
+
   for ($self->subcommands) {
     no strict 'refs';
     eval "require ".ref($self)."::$_";
@@ -129,7 +134,7 @@ sub cascadable {
       return ref($self)."::".$_;
     }
   }
-  return undef
+  return undef;
 }
 
 =head3 brief_usage ($file)

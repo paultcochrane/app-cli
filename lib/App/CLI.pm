@@ -112,7 +112,6 @@ use App::CLI::Helper;
 
 use constant alias => ();
 use constant global_options => ();
-use constant options => ();
 
 sub new {
     my $class = shift;

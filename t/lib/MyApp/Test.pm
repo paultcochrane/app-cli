@@ -10,6 +10,9 @@ use constant options => (
     'v|verbose' => 'verbose',
     'dispatch'  => 'dispatch',
 );
+use constant alias => (
+    'ca'        => 'cascading',
+);
 
 sub run {
     my $self = shift;
