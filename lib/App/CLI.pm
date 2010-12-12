@@ -1,7 +1,9 @@
-package App::CLI;
-our $VERSION = '0.313';
+use 5.010;
 use strict;
 use warnings;
+
+package App::CLI;
+our $VERSION = '0.313';
 
 =head1 NAME
 
@@ -190,7 +192,7 @@ sub root_cascadable {
   die $self->error_cmd unless $subcmd && $subcmd =~ m/^[?a-z]+$/;
 
   my %alias = $self->alias;
-  $subcmd = $alias{$subcmd} ? $alias{$subcmd} : $subcmd;
+  $subcmd = $alias{$subcmd} // $subcmd;
 
   for ($self->commands) {
     no strict "refs";

@@ -1,3 +1,4 @@
+use 5.010;
 use strict;
 use warnings;
 
@@ -94,7 +95,7 @@ sub subcommand {
         last;
       }
     }
-    $subcmd ? $subcmd : $self;
+    $subcmd // $self;
 }
 
 =head3 cascading()
@@ -125,7 +126,7 @@ sub cascadable {
   my $self = shift;
 
   my %alias = $self->alias;
-  $ARGV[0] = $alias{$ARGV[0]} ? $alias{$ARGV[0]} : $ARGV[0] if $ARGV[0];
+  $ARGV[0] = $alias{$ARGV[0]} // $ARGV[0] if $ARGV[0];
 
   for ($self->subcommands) {
     no strict 'refs';
