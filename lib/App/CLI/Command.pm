@@ -95,10 +95,9 @@ sub subcommand {
     @cmd = values %{{$self->options}} if @cmd && $cmd[0] eq '*';
     my $subcmd = undef;
     for (grep {$self->{$_}} @cmd) {
-      no strict 'refs';
-      if (exists ${ref($self).'::'}{$_.'::'}) {
-        my %data = %{$self};
-	$subcmd = bless ({%data}, (ref($self)."::$_"));
+      my $require = ref($self)."::$_";
+      if (class_existed $require) {
+        $subcmd = $require->new(%{$self});
         last;
       }
     }
