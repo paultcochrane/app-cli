@@ -68,9 +68,7 @@ sub options_mapper {
   $self;
 }
 
-sub command_options {
-    ((map { $_ => $_ } $_[0]->subcommands), $_[0]->options);
-}
+sub command_options { (map { $_ => $_ } $_[0]->subcommands), $_[0]->options }
 
 # XXX:
 sub _mk_completion_sh { }
@@ -93,15 +91,11 @@ sub subcommand {
     my $self = shift;
     my @cmd = $self->subcommands;
     @cmd = values %{{$self->options}} if @cmd && $cmd[0] eq '*';
-    my $subcmd = undef;
     for (grep {$self->{$_}} @cmd) {
       my $require = ref($self)."::$_";
-      if (class_existed $require) {
-        $subcmd = $require->new(%{$self});
-        last;
-      }
+      return $require->new(%{$self}) if class_existed $require;
     }
-    $subcmd // $self;
+    return $self;
 }
 
 =head3 cascading()
