@@ -125,6 +125,7 @@ The package is the base class of dispatcher.
 =cut
 
 use App::CLI::Helper;
+use Module::Load;
 
 use constant alias => ();
 use constant global_options => ();
@@ -191,19 +192,14 @@ sub root_cascadable {
   $subcmd //= $ARGV[0];
   die $self->error_cmd unless $subcmd && $subcmd =~ m/^[?a-z]+$/;
 
-  my %alias = $self->alias;
-  $subcmd = $alias{$subcmd} // $subcmd;
+  $subcmd = {$self->alias}->{$subcmd} // $subcmd;
 
   for ($self->commands) {
-    no strict "refs";
-    eval "require ".ref($self)."::".ucfirst($_);
-    if ($subcmd eq $_ && exists ${ref($self)."::"}{ucfirst($_)."::"}) {
-      return ref($self)."::".ucfirst($_);
-    }
+    load my $require = ref($self)."::".ucfirst($_);
+    return $require if $subcmd eq $_ && class_existed $require;
   }
   return undef;
 }
-
 
 # back-compatible
 sub get_cmd {

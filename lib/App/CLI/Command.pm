@@ -7,6 +7,7 @@ use Locale::Maketext::Simple;
 use Carp;
 use App::CLI::Helper;
 use Rubyish::Attribute;
+use Module::Load;
 
 =head1 NAME
 
@@ -130,16 +131,10 @@ otherwise, return undef
 
 sub cascadable {
   my $self = shift;
-
-  my %alias = $self->alias;
-  $ARGV[0] = $alias{$ARGV[0]} // $ARGV[0] if $ARGV[0];
-
+  $ARGV[0] = {$self->alias}->{$ARGV[0]} // $ARGV[0] if $ARGV[0] && $ARGV[0] =~ m/^[?a-z]+$/;
   for ($self->subcommands) {
-    no strict 'refs';
-    eval "require ".ref($self)."::$_";
-    if (ucfirst($ARGV[0]) eq $_ && exists ${ref($self)."::"}{$_."::"}) {
-      return ref($self)."::".$_;
-    }
+    load my $require = ref($self)."::$_";
+    return $require if ucfirst($ARGV[0]) eq $_ && class_existed $require;
   }
   return undef;
 }

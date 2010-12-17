@@ -13,6 +13,7 @@ requires 'Locale::Maketext::Simple';
 requires 'Pod::Simple::Text';
 requires 'Rubyish::Attribute';
 requires 'Pod::Find';
+requires 'Module::Load';
 
 auto_install;
 

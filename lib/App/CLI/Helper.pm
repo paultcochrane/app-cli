@@ -15,7 +15,7 @@ internal helper functions
 
 sub import {
   my $caller = caller;
-  for (qw(getoptions commands files lib)) {
+  for (qw(getoptions commands files lib class_existed)) {
     *{$caller."::$_"} = *$_;
   }
 }
@@ -82,6 +82,14 @@ sub lib {
     my $lib = $INC{"$pkg.pm"};
     $lib =~ s/$pkg\.pm//;
     return $lib;
+}
+
+sub class_existed {
+  my $class = shift;
+  my @list = split "::", $class;
+  my $last = pop @list;
+  no strict "refs";
+  exists(${join("::",@list)."::"}{$last."::"}) ? 1 : undef;
 }
 
 1;
