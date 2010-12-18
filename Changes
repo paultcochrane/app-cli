@@ -1,13 +1,15 @@
-0.32 Fri 17 Dec 2010 23:50:21 PM CST
+0.314 Fri 17 Dec 2010 23:50:21 PM CST
 
   * fully refactored version with beatiful API
   * new cascading algorithm in dispatcher
   * hierarchical help system
+  * $self->help() helper built in (sub)commands
+  * functionality of alias also works in (sub)commands
   * more docs
   * fix doc errors
   * use Rubyish::Attribute
-  * find PODs using POD::Find
-  * load (sub)commands using Module::Load
+  * find PODs via POD::Find
+  * load (sub)commands via Module::Load
 
 0.31 Thu 25 Nov 2010 03:58:47 PM CST
 
