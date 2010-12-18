@@ -3,8 +3,6 @@ use strict;
 use warnings;
 
 package App::CLI::Command;
-use Locale::Maketext::Simple;
-use Carp;
 use App::CLI::Helper;
 use Rubyish::Attribute;
 use Module::Load;
@@ -163,22 +161,6 @@ sub help {
 =head1 SEE ALSO
 
 L<App::CLI>
-L<Getopt::Long>
-
-=head1 AUTHORS
-
-Chia-liang Kao E<lt>clkao@clkao.orgE<gt>
-Cornelius Lin  E<lt>cornelius.howl@gmail.comE<gt>
-shelling       E<lt>navyblueshellingford@gmail.comE<gt>
-
-=head1 COPYRIGHT
-
-Copyright 2005-2006 by Chia-liang Kao E<lt>clkao@clkao.orgE<gt>.
-
-This program is free software; you can redistribute it and/or modify it
-under the same terms as Perl itself.
-
-See L<http://www.perl.com/perl/misc/Artistic.html>
 
 =cut
 
