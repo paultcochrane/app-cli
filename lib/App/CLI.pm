@@ -234,11 +234,17 @@ sub get_cmd {
 L<App::CLI::Command>
 L<Getopt::Long>
 
+=head1 MODULES USE App::CLI
+
+L<Jifty::Script>, L<App::gh>, L<App::I18N>
+
 =head1 AUTHORS
 
 Chia-liang Kao E<lt>clkao@clkao.orgE<gt>
-Cornelius Lin  E<lt>cornelius.howl@gmail.comE<gt>
-shelling       E<lt>navyblueshellingford@gmail.comE<gt>
+
+Yo-An Lin  E<lt>cornelius.howl@gmail.comE<gt>
+
+Shelling       E<lt>navyblueshellingford@gmail.comE<gt>
 
 =head1 COPYRIGHT
 
