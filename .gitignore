@@ -9,3 +9,4 @@ blib
 *.bak
 MANIFEST
 App-CLI-*.tar.gz
+MYMETA.*
