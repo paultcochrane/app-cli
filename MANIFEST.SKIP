@@ -7,5 +7,4 @@ MYMETA.yml
 .tar.gz$
 test*
 shipit
-META.yml
 .*\.bak$
