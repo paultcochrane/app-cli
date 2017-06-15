@@ -1,21 +1,21 @@
 #!/usr/bin/perl
 
-use inc::Module::Install;
+use strict;
+use warnings;
 
-name		('App-CLI');
-author		('Chia-liang Kao <clkao@clkao.org>');
-# author		('Cornelius <cornelius.howl@gmail.com>');
-abstract_from	('lib/App/CLI.pm');
-license		('perl');
-version_from	('lib/App/CLI.pm');
+use ExtUtils::MakeMaker qw(6.3.1);
 
-requires(
-    'Locale::Maketext::Simple' => 0,
-    'Getopt::Long'             => '2.35',
-    'Pod::Simple::Text'        => 0,
+WriteMakefile(
+    NAME          => "App::CLI",
+    VERSION_FROM  => "lib/App/CLI.pm",
+    ABSTRACT_FROM => "lib/App/CLI.pm",
+    AUTHOR        => ('Chia-liang Kao <clkao@clkao.org>'),
+    LICENSE       => "perl_5",
+    PREREQ_PM     => {
+        'Locale::Maketext::Simple' => 0,
+        'Getopt::Long'             => '2.35',
+        'Pod::Simple::Text'        => 0,
+    },
 );
 
-auto_install();
-
-# WriteAll( sign => 1 );
-WriteAll( );
+# vim: expandtab shiftwidth=4
