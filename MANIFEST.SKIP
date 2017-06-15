@@ -9,3 +9,4 @@ test*
 shipit
 META.yml
 .*\.bak$
+MYMETA.json
