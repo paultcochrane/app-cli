@@ -1,3 +1,13 @@
+0.32 Wed 28 Jun 2017 20:30:19 CEST
+
+  * Fix RT#122101: unskip META.yml
+  * Fix RT#120982: can't find inc/Module/Install.pm; replaced
+    Module::Install with ExtUtils::MakeMaker
+  * Fix RT#63798: fix typo in manpage
+  * Fix RT#62241: signature broken (signature has been removed)
+  * Fixed more typos in POD
+  * Fixed some PerlCritic issues
+
 0.313 Sat 4 Dec 2010 12:55:18 GMT
 
   * add more tests
