@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-use ExtUtils::MakeMaker qw(6.48);
+use ExtUtils::MakeMaker qw(6.64);
 
 WriteMakefile(
     NAME          => "App::CLI",
@@ -19,7 +19,10 @@ WriteMakefile(
         'File::Find'               => 0,
     },
     MIN_PERL_VERSION => 5.006,
-    META_MERGE       => {
+    TEST_REQUIRES    => {
+        'Test::More' => 0,
+    },
+    META_MERGE => {
         "meta-spec" => { version => 2 },
         resources   => {
             repository => {
