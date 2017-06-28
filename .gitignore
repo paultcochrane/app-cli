@@ -2,10 +2,10 @@ META.yml
 Makefile
 Makefile.old
 Makefile.PL.old
-inc/
 pm_to_blib
 *~
 blib
+cover_db/
 *.sw[po]
 *.bak
 MANIFEST
