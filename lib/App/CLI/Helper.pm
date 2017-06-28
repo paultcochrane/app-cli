@@ -3,8 +3,6 @@ package App::CLI::Helper;
 use strict;
 use warnings;
 
-our $VERSION = '0.4.2';
-
 sub import {
   no strict 'refs';
   my $caller = caller;
