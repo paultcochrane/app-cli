@@ -22,7 +22,7 @@ App::CLI - Dispatcher module for command line interface programs
     package MyApp::List;
     use base qw(App::CLI::Command); # any (SUB)COMMAND of your App
 
-    use constant options => qw(
+    use constant options => (
         "h|help"   => "help",
         "verbose"  => "verbose",
         'n|name=s'  => 'name',
