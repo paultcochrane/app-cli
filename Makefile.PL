@@ -7,16 +7,16 @@ use ExtUtils::MakeMaker qw(6.64);
 
 WriteMakefile(
     NAME          => "App::CLI",
-    VERSION       => '0.4.2',
+    VERSION       => '0.4.3',
     ABSTRACT_FROM => "lib/App/CLI.pm",
-    AUTHOR        => (
+    AUTHOR        => [
         'Chia-liang Kao <clkao@clkao.org>',
         'Yo-An Lin      <cornelius.howl@gmail.com>',
         'Shelling       <navyblueshellingford@gmail.com>',
         'Paul Cochrane  <paul@liekut.de>',
-    ),
-    LICENSE       => "perl_5",
-    PREREQ_PM     => {
+    ],
+    LICENSE   => "perl_5",
+    PREREQ_PM => {
         'Locale::Maketext::Simple' => 0,
         'Getopt::Long'             => '2.35',
         'Pod::Simple::Text'        => 0,
@@ -38,7 +38,8 @@ WriteMakefile(
         },
         provides => {
             'App::CLI' => {
-                file => 'lib/App/CLI.pm',
+                file    => 'lib/App/CLI.pm',
+                version => '0.4.3',
             },
             'App::CLI::Helper' => {
                 file => 'lib/App/CLI/Helper.pm',
@@ -49,7 +50,7 @@ WriteMakefile(
             'App::CLI::Command::Help' => {
                 file => 'lib/App/CLI/Command/Help.pm',
             },
-        }
+        },
     },
 );
 

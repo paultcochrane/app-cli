@@ -1,3 +1,8 @@
+0.4.3  Wed 28 Jun 2017 22:37:58 CEST
+
+  * put VERSION back into only Makefile.PL
+  * updated author information
+
 0.4.2  Wed 28 Jun 2017 22:25:29 CEST
 
   * add VERSION to all .pm files
