@@ -4,6 +4,8 @@ use strict;
 use warnings;
 use 5.006;
 
+our $VERSION = '0.4.5';
+
 =head1 NAME
 
 App::CLI - Dispatcher module for command line interface programs
