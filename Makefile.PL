@@ -9,7 +9,12 @@ WriteMakefile(
     NAME          => "App::CLI",
     VERSION       => '0.4.2',
     ABSTRACT_FROM => "lib/App/CLI.pm",
-    AUTHOR        => ('Chia-liang Kao <clkao@clkao.org>'),
+    AUTHOR        => (
+        'Chia-liang Kao <clkao@clkao.org>',
+        'Yo-An Lin      <cornelius.howl@gmail.com>',
+        'Shelling       <navyblueshellingford@gmail.com>',
+        'Paul Cochrane  <paul@liekut.de>',
+    ),
     LICENSE       => "perl_5",
     PREREQ_PM     => {
         'Locale::Maketext::Simple' => 0,

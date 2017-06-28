@@ -248,6 +248,8 @@ Yo-An Lin      E<lt>cornelius.howl@gmail.comE<gt>
 
 Shelling       E<lt>navyblueshellingford@gmail.comE<gt>
 
+Paul Cochrane  E<lt>paul@liekut.deE<gt> (current maintainer)
+
 =head1 COPYRIGHT
 
 Copyright 2005-2006 by Chia-liang Kao E<lt>clkao@clkao.orgE<gt>.
