@@ -15,6 +15,8 @@ WriteMakefile(
         'Locale::Maketext::Simple' => 0,
         'Getopt::Long'             => '2.35',
         'Pod::Simple::Text'        => 0,
+        'Carp'                     => 0,
+        'File::Find'               => 0,
     },
     MIN_PERL_VERSION => 5.006,
     META_MERGE       => {
