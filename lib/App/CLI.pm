@@ -22,7 +22,7 @@ App::CLI - Dispatcher module for command line interface programs
     package MyApp::List;
     use base qw(App::CLI::Command); # any (SUB)COMMAND of your App
 
-    use constant options => qw( 
+    use constant options => qw(
         "h|help"   => "help",
         "verbose"  => "verbose",
         'n|name=s'  => 'name',
@@ -44,7 +44,7 @@ App::CLI - Dispatcher module for command line interface programs
             # if $ myapp list --help or $ $ myapp list -h
             # just only output PODs
         } else {
-            # do something when imvoking $ my app list 
+            # do something when imvoking $ my app list
             # without subcommand and --help
         }
     }
@@ -78,7 +78,7 @@ App::CLI - Dispatcher module for command line interface programs
 
     sub run {
         my ($self, @args);
-        # run to here when invoking $ myapp list --type 
+        # run to here when invoking $ myapp list --type
     }
 
 
@@ -154,7 +154,7 @@ sub get_opt {
     my $p = Getopt::Long::Parser->new;
     $p->configure(@$config);
     my $err = '';
-    local $SIG{__WARN__} = sub { 
+    local $SIG{__WARN__} = sub {
       my $msg = shift;
       $err .= "$msg"
     };
