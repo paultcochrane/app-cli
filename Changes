@@ -1,3 +1,7 @@
+0.4.4  Wed 28 Jun 2017 22:52:33 CEST
+
+  * remove 'provides' metadata
+
 0.4.3  Wed 28 Jun 2017 22:37:58 CEST
 
   * put VERSION back into only Makefile.PL
