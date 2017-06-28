@@ -1,3 +1,7 @@
+0.45  Wed Jun 28 23:05:58 CEST 2017
+
+  * use a version number in the original style
+
 0.4.5  Wed Jun 28 22:59:33 CEST 2017
 
   * put VERSION back in main module file
