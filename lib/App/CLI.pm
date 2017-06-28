@@ -1,7 +1,9 @@
 package App::CLI;
-our $VERSION = '0.313';
+
 use strict;
 use warnings;
+
+our $VERSION = '0.313';
 
 =head1 NAME
 
