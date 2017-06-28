@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-use ExtUtils::MakeMaker qw(6.3.1);
+use ExtUtils::MakeMaker qw(6.48);
 
 WriteMakefile(
     NAME          => "App::CLI",
@@ -16,6 +16,7 @@ WriteMakefile(
         'Getopt::Long'             => '2.35',
         'Pod::Simple::Text'        => 0,
     },
+    MIN_PERL_VERSION => 5.006,
 );
 
 # vim: expandtab shiftwidth=4
