@@ -17,6 +17,16 @@ WriteMakefile(
         'Pod::Simple::Text'        => 0,
     },
     MIN_PERL_VERSION => 5.006,
+    META_MERGE       => {
+        "meta-spec" => { version => 2 },
+        resources   => {
+            repository => {
+                type => 'git',
+                url  => 'git@github.com:paultcochrane/app-cli.git',
+                web  => 'https://github.com/paultcochrane/app-cli',
+            },
+        },
+    },
 );
 
 # vim: expandtab shiftwidth=4
