@@ -26,7 +26,7 @@ App::CLI::Command - Base class for App::CLI commands
 
         my $name = $self->{name}; # get arg following long option --name
 
-        # any thing your want this command do
+        # anything you want this command do
     }
 
     # See App::CLI for information of how to invoke (sub)command.
@@ -85,7 +85,8 @@ sub subcommand {
 
 =head3 cascading()
 
-return instance of cascading subcommand invoked if it was listed in your constant subcommands.
+Return instance of cascading subcommand invoked if it was listed in your
+constant subcommands.
 
 =cut
 
@@ -102,9 +103,8 @@ sub cascading {
 
 =head3 cascadable()
 
-return package name of subcommand if the subcommand invoked is in you constant subcommands
-
-otherwise, return undef
+Return package name of subcommand if the subcommand invoked is in your
+constant subcommands, otherwise, return C<undef>.
 
 =cut
 
@@ -129,7 +129,7 @@ sub app {
 
 =head3 brief_usage ($file)
 
-Display an one-line brief usage of the command object.  Optionally, a file
+Display a one-line brief usage of the command object.  Optionally, a file
 could be given to extract the usage from the POD.
 
 =cut
@@ -176,7 +176,7 @@ sub usage {
 
 =head3 loc_text $text
 
-Localizes the body of (formatted) text in $text, and returns the
+Localizes the body of (formatted) text in C<$text> and returns the
 localized version.
 
 =cut

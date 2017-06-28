@@ -18,14 +18,14 @@ App::CLI::Command::Help
     sub run {
         my ($self, @args) = @_;
         # preprocess
-        $self->SUPER(@_);       # App::CLI::Command::Help would output PODs of each command
+        $self->SUPER(@_);       # App::CLI::Command::Help would output POD of each command
     }
 
 =head1 DESCRIPTION
 
 Your command class should be capitalized.
 
-To add help message , you just add pod in command class:
+To add help message, just add POD in the command class:
 
     package YourApp::Command::Foo;
 

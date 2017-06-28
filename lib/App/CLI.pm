@@ -11,12 +11,12 @@ App::CLI - Dispatcher module for command line interface programs
 
     package MyApp;
     use base 'App::CLI';        # the DISPATCHER of your App
-                                # it's not necessary putting the dispather
-                                #  on the top level of your App
+                                # it's not necessary putting the dispatcher
+                                # on the top level of your App
 
     package main;
 
-    MyApp->dispatch;            # call dispather in where you want
+    MyApp->dispatch;            # call dispatcher in where you want
 
 
     package MyApp::List;
@@ -31,8 +31,8 @@ App::CLI - Dispatcher module for command line interface programs
     use constant subcommands => qw(User Nickname type); # if you want subcommands
                                                         # automatically dispatch to subcommands
                                                         # when invoke $ myapp list [user|nickname|--type]
-                                                        # note 'type' lower case in first char
-                                                        # is subcommand of old genre which is deprecated
+                                                        # note 'type' is not capitalized
+                                                        # it is a deprecated subcommand
 
     sub run {
         my ($self, @args) = @_;
@@ -41,7 +41,7 @@ App::CLI - Dispatcher module for command line interface programs
         my $name = $self->{name}; # get arg following long option --name
 
         if ($self->{help}) {
-            # if $ myapp list --help or $ $ myapp list -h
+            # if $ myapp list --help or $ myapp list -h
             # just only output PODs
         } else {
             # do something when imvoking $ my app list
@@ -73,8 +73,8 @@ App::CLI - Dispatcher module for command line interface programs
         # code for listing nickname
     }
 
-    package MyApp::List::type;   # old genre of subcommand could not be cascading infinitely
-    use base qw(MyApp::List);    # should inherit its parents command
+    package MyApp::List::type;   # old genre of subcommand could not cascade infinitely
+    use base qw(MyApp::List);    # should inherit its parent's command
 
     sub run {
         my ($self, @args);
@@ -92,7 +92,7 @@ App::CLI - Dispatcher module for command line interface programs
     sub run {
         my ($self, @arg) = @_;
         # do something
-        $self->SUPER(@_); # App::CLI::Command::Help would output PDOs of each command
+        $self->SUPER(@_); # App::CLI::Command::Help would output POD of each command
     }
 
 =head1 DESCRIPTION
@@ -144,7 +144,7 @@ sub prepare {
 
 =head3 get_opt([@config], %opt_map)
 
-    give options map, process by Getopt::Long::Parser
+Give options map, processed by L<Getopt::Long::Parser>.
 
 =cut
 
@@ -170,7 +170,7 @@ sub opt_map {
 
 =head3
 
-interface of dispatcher
+Interface of dispatcher
 
 =cut
 
@@ -182,11 +182,10 @@ sub dispatch {
 
 =head3 cmd_map($cmd)
 
-find package name of subcommand in constant %alias
+Find package name of subcommand in constant C<%alias>.
 
-if it's finded, return ucfirst of the package name,
-
-otherwise, return ucfirst of $cmd itself.
+If it's found, return C<ucfirst> of the package name, otherwise, return
+C<ucfirst> of C<$cmd> itself.
 
 =cut
 
@@ -205,7 +204,7 @@ sub error_opt { $_[1] }
 
 =head3 get_cmd($cmd, @arg)
 
-return subcommand of first level via $ARGV[0]
+Return subcommand of first level via C<$ARGV[0]>.
 
 =cut
 
@@ -242,7 +241,7 @@ L<Jifty::Script>, L<App::gh>, L<App::I18N>
 
 Chia-liang Kao E<lt>clkao@clkao.orgE<gt>
 
-Yo-An Lin  E<lt>cornelius.howl@gmail.comE<gt>
+Yo-An Lin      E<lt>cornelius.howl@gmail.comE<gt>
 
 Shelling       E<lt>navyblueshellingford@gmail.comE<gt>
 
