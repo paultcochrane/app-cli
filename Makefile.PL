@@ -36,21 +36,6 @@ WriteMakefile(
                 web  => 'https://github.com/paultcochrane/app-cli',
             },
         },
-        provides => {
-            'App::CLI' => {
-                file    => 'lib/App/CLI.pm',
-                version => '0.4.3',
-            },
-            'App::CLI::Helper' => {
-                file => 'lib/App/CLI/Helper.pm',
-            },
-            'App::CLI::Command' => {
-                file => 'lib/App/CLI/Command.pm',
-            },
-            'App::CLI::Command::Help' => {
-                file => 'lib/App/CLI/Command/Help.pm',
-            },
-        },
     },
 );
 
