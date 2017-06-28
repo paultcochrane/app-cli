@@ -7,7 +7,7 @@ use ExtUtils::MakeMaker qw(6.64);
 
 WriteMakefile(
     NAME          => "App::CLI",
-    VERSION_FROM  => "lib/App/CLI.pm",
+    VERSION       => 0.4.1,
     ABSTRACT_FROM => "lib/App/CLI.pm",
     AUTHOR        => ('Chia-liang Kao <clkao@clkao.org>'),
     LICENSE       => "perl_5",

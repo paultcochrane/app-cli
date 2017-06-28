@@ -1,3 +1,7 @@
+0.4.1  Wed 28 Jun 2017 21:44:06 CEST
+
+  * move version number into Makefile.PL
+
 0.4  Wed 28 Jun 2017 21:37:23 CEST
 
   * version bump; PAUSE thinks that 0.313 is higher than 0.32
