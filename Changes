@@ -1,3 +1,15 @@
+0.313 Sat 4 Dec 2010 12:55:18 GMT
+
+  * add more tests
+
+0.312 Fri 3 Dec 2010 12:06:53 GMT
+
+  * add commands() and files() routines
+
+0.311 Fri 3 Dec 2010 05:30:16 GMT
+
+  * add more docs
+  * fix subcommand() to support old genre
 
 0.31 Thu 25 Nov 2010 03:58:47 PM CST
 
