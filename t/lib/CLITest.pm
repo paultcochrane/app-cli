@@ -1,5 +1,6 @@
 package CLITest;
 use base 'Exporter';
+use strict;
 our @EXPORT = qw(cliack clicheck);
 
 our @STACK;

@@ -1,5 +1,6 @@
 package MyApp::Test::Cascading::Infinite::Subcommands;
 use base qw(App::CLI::Command);
+use strict;
 use CLITest;
 
 use constant options => (

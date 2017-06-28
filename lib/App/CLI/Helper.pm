@@ -1,6 +1,10 @@
 package App::CLI::Helper;
 
+use strict;
+use warnings;
+
 sub import {
+  no strict 'refs';
   my $caller = caller;
   for (qw(commands files)) {
     *{$caller."::$_"} = *$_;
