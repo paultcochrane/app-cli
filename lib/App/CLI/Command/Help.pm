@@ -6,6 +6,8 @@ use File::Find qw(find);
 use Locale::Maketext::Simple;
 use Pod::Simple::Text;
 
+our $VERSION = '0.4.2';
+
 =head1 NAME
 
 App::CLI::Command::Help

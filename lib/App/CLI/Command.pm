@@ -5,6 +5,8 @@ use Locale::Maketext::Simple;
 use Carp ();
 use App::CLI::Helper;
 
+our $VERSION = '0.4.2';
+
 =head1 NAME
 
 App::CLI::Command - Base class for App::CLI commands
