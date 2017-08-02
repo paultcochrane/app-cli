@@ -3,6 +3,7 @@ package App::CLI;
 use strict;
 use warnings;
 use 5.006;
+use Class::Load qw( load_class );
 
 our $VERSION = '0.45';
 
@@ -216,18 +217,13 @@ sub get_cmd {
     die $class->error_cmd unless $cmd && $cmd =~ m/^[?a-z]+$/;
 
     my $pkg = join('::', $class, $class->cmd_map($cmd));
-    my $file = "$pkg.pm";
-    $file =~ s!::!/!g;
-    eval { require $file; };
+    load_class $pkg;
 
-    unless ($pkg->can('run')) {
-      warn $@ if $@ and exists $INC{$file};
-      die $class->error_cmd;
-    } else {
-      $cmd = $pkg->new(@arg);
-      $cmd->app($class);
-      return $cmd;
-    }
+    die $class->error_cmd unless $pkg->can('run');
+
+    $cmd = $pkg->new(@arg);
+    $cmd->app($class);
+    return $cmd;
 }
 
 
