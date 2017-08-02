@@ -21,11 +21,20 @@ sub import {
 
 sub commands {
     my $class = shift;
-    my $dir = ref($class) ? ref($class) : $class;
+    my $dir = ref($class) || $class;
+
     $dir =~ s{::}{/}g;
     $dir = $INC{$dir.'.pm'};
     $dir =~ s/\.pm$//;
-    return sort map { ($_) = m{^\Q$dir\E/(.*)\.pm}; lc($_) } $class->files;
+
+    my @cmds = map { ($_) = m{^\Q$dir\E/(.*)\.pm}; lc($_) } $class->files;
+
+    if (ref $class and $class->can('alias')) {
+        my %aliases = $class->alias;
+        push @cmds, $_ foreach keys %aliases;
+    }
+
+    return sort @cmds;
 }
 
 =head3 files()
