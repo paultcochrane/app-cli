@@ -98,7 +98,7 @@ sub cascading {
     my %data = %{$self};
     return bless {%data}, $subcmd;
   } else {
-    die $self->error_cmd;
+    die $self->error_cmd($ARGV[0]);
   }
 }
 

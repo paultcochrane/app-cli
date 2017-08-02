@@ -201,7 +201,12 @@ sub cmd_map {
 }
 
 sub error_cmd {
-    "Command not recognized, try $0 --help.\n";
+    my ($self, $pkg) = @_;
+
+    my $cmd = ref($pkg) || $pkg;
+    $cmd //= q{};
+
+    return "Command $cmd not recognized, try $0 --help.\n";
 }
 
 sub error_opt { $_[1] }
@@ -214,7 +219,7 @@ Return subcommand of first level via C<$ARGV[0]>.
 
 sub get_cmd {
     my ($class, $cmd, @arg) = @_;
-    die $class->error_cmd unless $cmd && $cmd =~ m/^[?a-z]+$/;
+    die $class->error_cmd($cmd) unless $cmd && $cmd =~ m/^[?a-z]+$/;
 
     my $pkg = join('::', $class, $class->cmd_map($cmd));
     load_class $pkg;
