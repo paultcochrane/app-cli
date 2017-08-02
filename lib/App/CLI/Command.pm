@@ -115,7 +115,7 @@ sub cascadable {
   for ($self->subcommands) {
     no strict 'refs';
     load_class "$class::$_";
-    if (ucfirst($ARGV[0]) eq $_ && exists ${$class . '::'}{$_ . '::'}) {
+    if ($ARGV[0] and ucfirst($ARGV[0]) eq $_ && exists ${$class . '::'}{$_ . '::'}) {
       return ref($self)."::".$_;
     }
   }
