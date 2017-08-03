@@ -219,7 +219,7 @@ Return subcommand of first level via C<$ARGV[0]>.
 
 sub get_cmd {
     my ($class, $cmd, @arg) = @_;
-    die $class->error_cmd($cmd) unless $cmd && $cmd =~ m/^[?a-z]+$/;
+    die $class->error_cmd($cmd) unless $cmd && $cmd eq lc($cmd);
 
     my $pkg = join('::', $class, $class->cmd_map($cmd));
     load_class $pkg;
