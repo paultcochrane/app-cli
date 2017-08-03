@@ -114,9 +114,10 @@ sub cascadable {
   my $class = ref $self || $self;
   for ($self->subcommands) {
     no strict 'refs';
-    load_class "$class::$_";
+    my $package_name = $class . '::' . $_;
+    load_class $package_name;
     if ($ARGV[0] and ucfirst($ARGV[0]) eq $_ && exists ${$class . '::'}{$_ . '::'}) {
-      return ref($self)."::".$_;
+      return $package_name;
     }
   }
   return undef
