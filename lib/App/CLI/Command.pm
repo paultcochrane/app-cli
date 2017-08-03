@@ -173,7 +173,10 @@ sub usage {
     $buf =~ s/^AUTHORS.*//sm;
     $buf =~ s/^DESCRIPTION.*//sm unless $want_detail;
 
-    return ($buf ne q{}) ? $self->loc_text($buf) : $self->default_usage;
+    my $usage = ($buf ne q{}) ? $self->loc_text($buf) : $self->default_usage;
+    print $usage;
+
+    return $usage;
 }
 
 sub command_name {
