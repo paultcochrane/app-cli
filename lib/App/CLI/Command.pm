@@ -3,6 +3,7 @@ use strict;
 use warnings;
 use Locale::Maketext::Simple;
 use Carp ();
+use File::Basename qw( basename );
 use App::CLI::Helper;
 
 =head1 NAME
@@ -171,7 +172,40 @@ sub usage {
     $buf =~ s/\Q$base\E::(\w+)/\l$1/g;
     $buf =~ s/^AUTHORS.*//sm;
     $buf =~ s/^DESCRIPTION.*//sm unless $want_detail;
-    print $self->loc_text($buf);
+
+    return ($buf ne q{}) ? $self->loc_text($buf) : $self->default_usage;
+}
+
+sub command_name {
+    my ($self) = @_;
+    my $base = ref $self || $self;
+    $base =~ s/^.*:://;
+    return lc $base;
+}
+
+sub default_usage {
+    my ($self) = @_;
+
+    my %options = ($self->global_options, $self->options);
+    my $usage = basename($0) . q{ } . $self->command_name;
+
+    if (%options) {
+      my (@short, @long);
+
+      foreach my $opt (keys %options) {
+        foreach (split qr{\|}, $opt) {
+          (length == 1)
+            ? push @short, $_
+            : push @long,  $_;
+        }
+      }
+
+      $usage .= ' [' . join(q{}, sort @short) . ']' if @short;
+      $usage .= ' [long options]' if @long;
+      $usage .= " ...\n";
+    }
+
+    return $usage;
 }
 
 =head3 loc_text $text
