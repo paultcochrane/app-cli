@@ -61,6 +61,11 @@ sub run_command {
     $self->run(@_);
 }
 
+sub run {
+  my $class = shift;
+  Carp::croak ref($class) . " does not implement mandatory method 'run'\n";
+}
+
 =head3 subcommand()
 
     return old genre subcommand of $self;
@@ -97,7 +102,7 @@ sub cascading {
     my %data = %{$self};
     return bless {%data}, $subcmd;
   } else {
-    die $self->error_cmd;
+    die $self->error_cmd($ARGV[0]);
   }
 }
 
