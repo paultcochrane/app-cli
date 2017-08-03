@@ -61,6 +61,11 @@ sub run_command {
     $self->run(@_);
 }
 
+sub run {
+  my $class = shift;
+  Carp::croak ref($class) . " does not implement mandatory method 'run'\n";
+}
+
 =head3 subcommand()
 
     return old genre subcommand of $self;

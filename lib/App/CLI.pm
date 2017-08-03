@@ -225,14 +225,9 @@ sub get_cmd {
     $file =~ s!::!/!g;
     eval { require $file; };
 
-    unless ($pkg->can('run')) {
-      warn $@ if $@ and exists $INC{$file};
-      die $class->error_cmd;
-    } else {
-      $cmd = $pkg->new(@arg);
-      $cmd->app($class);
-      return $cmd;
-    }
+    $cmd = $pkg->new(@arg);
+    $cmd->app($class);
+    return $cmd;
 }
 
 
