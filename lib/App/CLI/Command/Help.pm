@@ -16,9 +16,9 @@ App::CLI::Command::Help
     use base qw(App::CLI::Command::Help);
 
     sub run {
-        my ($self, @args) = @_;
+        my $self = shift;
         # preprocess
-        $self->SUPER(@_);       # App::CLI::Command::Help would output POD of each command
+        $self->SUPER::run(@_);  # App::CLI::Command::Help would output POD of each command
     }
 
 =head1 DESCRIPTION
