@@ -26,7 +26,8 @@ WriteMakefile(
     },
     MIN_PERL_VERSION => 5.006,
     TEST_REQUIRES    => {
-        'Test::More' => 0,
+        'Test::More'     => 0,
+        'Test::Kwalitee' => 0,
     },
     META_MERGE => {
         "meta-spec" => { version => 2 },
