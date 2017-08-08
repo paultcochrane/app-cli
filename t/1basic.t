@@ -1,5 +1,8 @@
-#!/usr/bin/perl -w
+#!/usr/bin/perl
+
 use strict;
+use warnings;
+
 use Test::More tests => 11;
 use lib qw(t/lib);
 use CLITest;
