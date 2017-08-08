@@ -203,8 +203,7 @@ sub cmd_map {
 sub error_cmd {
     my ($self, $pkg) = @_;
 
-    my $cmd = ref($pkg) || $pkg;
-    $cmd //= q{};
+    my $cmd = ref($pkg) || $pkg || '';
 
     return "Command $cmd not recognized, try $0 --help.\n";
 }
