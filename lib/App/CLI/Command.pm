@@ -4,6 +4,7 @@ use warnings;
 use Locale::Maketext::Simple;
 use Carp ();
 use App::CLI::Helper;
+use Class::Load qw( load_class );
 
 =head1 NAME
 
@@ -110,11 +111,13 @@ constant subcommands, otherwise, return C<undef>.
 
 sub cascadable {
   my $self = shift;
+  my $class = ref $self || $self;
   for ($self->subcommands) {
     no strict 'refs';
-    eval "require ".ref($self)."::$_";
-    if (ucfirst($ARGV[0]) eq $_ && exists ${ref($self)."::"}{$_."::"}) {
-      return ref($self)."::".$_;
+    my $package_name = $class . '::' . $_;
+    load_class $package_name;
+    if ($ARGV[0] and ucfirst($ARGV[0]) eq $_ && exists ${$class . '::'}{$_ . '::'}) {
+      return $package_name;
     }
   }
   return undef
