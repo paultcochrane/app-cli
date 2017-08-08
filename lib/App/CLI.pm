@@ -223,7 +223,7 @@ sub get_cmd {
     my $pkg = join('::', $class, $class->cmd_map($cmd));
     load_class $pkg;
 
-    die $class->error_cmd unless $pkg->can('run');
+    die $class->error_cmd($cmd) unless $pkg->can('run');
 
     $cmd = $pkg->new(@arg);
     $cmd->app($class);
