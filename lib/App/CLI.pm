@@ -4,6 +4,7 @@ use strict;
 use warnings;
 use 5.006;
 use Class::Load qw( load_class );
+use Scalar::Util qw( weaken );
 
 our $VERSION = '0.45';
 
@@ -179,8 +180,14 @@ Interface of dispatcher
 =cut
 
 sub dispatch {
-    my $class = shift;
-    $class->prepare(@_)->run_command(@ARGV);
+    my $self = shift;
+    $self = $self->new unless ref $self;
+
+    $self->app($self);
+    weaken($self->{app});
+
+    my $cmd = $self->prepare(@_);
+    $cmd->run_command(@ARGV);
 }
 
 
@@ -220,13 +227,15 @@ sub get_cmd {
     my ($class, $cmd, @arg) = @_;
     die $class->error_cmd($cmd) unless $cmd && $cmd eq lc($cmd);
 
-    my $pkg = join('::', $class, $class->cmd_map($cmd));
+    my $base = ref $class;
+    my $pkg = join('::', $base, $class->cmd_map($cmd));
     load_class $pkg;
 
     die $class->error_cmd($cmd) unless $pkg->can('run');
 
     $cmd = $pkg->new(@arg);
     $cmd->app($class);
+    weaken($cmd->{app});
     return $cmd;
 }
 
