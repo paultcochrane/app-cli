@@ -183,8 +183,7 @@ sub dispatch {
     my ($self, @args) = @_;
     $self = $self->new unless ref $self;
 
-    $self->app($self);
-    weaken($self->{app});
+    $self->app($self) if $self->can('app');
 
     my $cmd = $self->prepare(@args);
     $cmd->run_command(@ARGV);
