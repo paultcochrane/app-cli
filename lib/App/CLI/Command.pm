@@ -5,6 +5,7 @@ use Locale::Maketext::Simple;
 use Carp ();
 use App::CLI::Helper;
 use Class::Load qw( load_class );
+use Scalar::Util qw( weaken );
 
 =head1 NAME
 
@@ -130,9 +131,13 @@ sub cascadable {
 
 sub app {
     my $self = shift;
-    die Carp::longmess "not a ref" unless ref $self;
-    $self->{app} = shift if @_;
-    return ref ($self->{app}) || $self->{app};
+
+    if (@_) {
+        $self->{app} = shift;
+        weaken($self->{app});
+    }
+
+    return $self->{app};
 }
 
 =head3 brief_usage ($file)
