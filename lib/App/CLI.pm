@@ -4,7 +4,6 @@ use strict;
 use warnings;
 use 5.006;
 use Class::Load qw( load_class );
-use Scalar::Util qw( weaken );
 
 our $VERSION = '0.45';
 
@@ -183,8 +182,7 @@ sub dispatch {
     my $self = shift;
     $self = $self->new unless ref $self;
 
-    $self->app($self);
-    weaken($self->{app});
+    $self->app($self) if $self->can('app');
 
     my $cmd = $self->prepare(@_);
     $cmd->run_command(@ARGV);
@@ -235,7 +233,6 @@ sub get_cmd {
 
     $cmd = $pkg->new(@arg);
     $cmd->app($class);
-    weaken($cmd->{app});
     return $cmd;
 }
 
