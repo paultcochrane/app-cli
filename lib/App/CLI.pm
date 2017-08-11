@@ -4,7 +4,6 @@ use strict;
 use warnings;
 use 5.006;
 use Class::Load qw( load_class );
-use Scalar::Util qw( weaken );
 
 our $VERSION = '0.45';
 
@@ -235,7 +234,6 @@ sub get_cmd {
     my @arg = %$data;
     $cmd = $pkg->new(@arg);
     $cmd->app($self);
-    weaken($cmd->{app});
     return $cmd;
 }
 
