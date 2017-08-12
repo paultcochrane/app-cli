@@ -122,22 +122,22 @@ sub new {
 }
 
 sub prepare {
-    my $class = shift;
+    my $self = shift;
     my $data = {};
 
-    $class->get_opt(
+    $self->get_opt(
         [qw(no_ignore_case bundling pass_through)],
-        opt_map($data, $class->global_options)
+        opt_map($data, $self->global_options)
     );
 
-    my $cmd = $class->get_cmd(shift @ARGV, @_, $data);
+    my $cmd = $self->get_cmd(shift @ARGV, @_, $data);
 
     while ($cmd->cascadable) {
       $cmd = $cmd->cascading;
     }
 
 
-    $class->get_opt(
+    $self->get_opt(
         [qw(no_ignore_case bundling)],
         opt_map($cmd, $cmd->command_options)
     );
@@ -154,7 +154,7 @@ Give options map, processed by L<Getopt::Long::Parser>.
 =cut
 
 sub get_opt {
-    my $class = shift;
+    my $self = shift;
     my $config = shift;
     my $p = Getopt::Long::Parser->new;
     $p->configure(@$config);
@@ -163,7 +163,7 @@ sub get_opt {
       my $msg = shift;
       $err .= "$msg"
     };
-    die $class->error_opt ($err) unless $p->getoptions(@_);
+    die $self->error_opt ($err) unless $p->getoptions(@_);
 }
 
 
@@ -224,18 +224,18 @@ Return subcommand of first level via C<$ARGV[0]>.
 =cut
 
 sub get_cmd {
-    my ($class, $cmd, $data) = @_;
-    die $class->error_cmd($cmd) unless $cmd && $cmd eq lc($cmd);
+    my ($self, $cmd, $data) = @_;
+    die $self->error_cmd($cmd) unless $cmd && $cmd eq lc($cmd);
 
-    my $base = ref $class;
-    my $pkg = join('::', $base, $class->cmd_map($cmd));
+    my $base = ref $self;
+    my $pkg = join('::', $base, $self->cmd_map($cmd));
     load_class $pkg;
 
-    die $class->error_cmd($cmd) unless $pkg->can('run');
+    die $self->error_cmd($cmd) unless $pkg->can('run');
 
     my @arg = %$data;
     $cmd = $pkg->new(@arg);
-    $cmd->app($class);
+    $cmd->app($self);
     weaken($cmd->{app});
     return $cmd;
 }
