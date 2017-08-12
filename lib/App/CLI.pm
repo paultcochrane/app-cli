@@ -130,7 +130,7 @@ sub prepare {
         opt_map($data, $class->global_options)
     );
 
-    my $cmd = $class->get_cmd(shift @ARGV, @_, %$data);
+    my $cmd = $class->get_cmd(shift @ARGV, @_, $data);
 
     while ($cmd->cascadable) {
       $cmd = $cmd->cascading;
@@ -224,7 +224,7 @@ Return subcommand of first level via C<$ARGV[0]>.
 =cut
 
 sub get_cmd {
-    my ($class, $cmd, @arg) = @_;
+    my ($class, $cmd, $data) = @_;
     die $class->error_cmd($cmd) unless $cmd && $cmd eq lc($cmd);
 
     my $base = ref $class;
@@ -233,6 +233,7 @@ sub get_cmd {
 
     die $class->error_cmd($cmd) unless $pkg->can('run');
 
+    my @arg = %$data;
     $cmd = $pkg->new(@arg);
     $cmd->app($class);
     weaken($cmd->{app});
