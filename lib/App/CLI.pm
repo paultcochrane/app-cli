@@ -174,6 +174,8 @@ sub get_opt {
         my $msg = shift;
         $err .= "$msg"
     };
+    my @current_argv = @ARGV;
+    $self->app_argv(\@current_argv);
     die $self->error_opt($err) unless $p->getoptions(@app_options);
 }
 
@@ -220,9 +222,15 @@ sub cmd_map {
 sub error_cmd {
     my ($self, $pkg) = @_;
 
-    my $cmd = ref($pkg) || $pkg || '';
+    my $cmd;
+    if (defined($pkg)) {
+        $cmd = ref($pkg) || $pkg;
+    }
+    else {
+        $cmd = ${$self->app_argv}[0];
+    }
 
-    return "Command $cmd not recognized, try $0 --help.\n";
+    return "Command '$cmd' not recognized, try $0 --help.\n";
 }
 
 sub error_opt { $_[1] }

@@ -15,7 +15,7 @@ eval {
 };
 like(
     $@,
-    qr/Command  not recognized, try/,
+    qr/Command '--help' not recognized, try/,
     "Raise error on unrecognized command"
 );
 
