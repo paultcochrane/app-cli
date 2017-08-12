@@ -13,7 +13,11 @@ eval {
     local *ARGV = ['--help'];
     MyApp->dispatch;
 };
-ok ($@);
+like(
+    $@,
+    qr/Command  not recognized, try/,
+    "Raise error on unrecognized command"
+);
 
 is_deeply ([MyApp->commands],
 	   ['help', 'test']);
