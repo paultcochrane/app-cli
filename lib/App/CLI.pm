@@ -117,7 +117,20 @@ use constant options => ();
 
 sub new {
     my ($class, @args) = @_;
-    bless {@args}, $class;
+    my $self = bless {@args}, $class;
+    $self->{'app_argv'} = undef;
+
+    return $self;
+}
+
+sub app_argv {
+    my $self = shift;
+
+    if (@_) {
+        $self->{'app_argv'} = shift;
+    }
+
+    return $self->{'app_argv'};
 }
 
 sub prepare {
