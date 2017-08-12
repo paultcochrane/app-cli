@@ -160,10 +160,10 @@ sub get_opt {
     $p->configure(@$config);
     my $err = '';
     local $SIG{__WARN__} = sub {
-      my $msg = shift;
-      $err .= "$msg"
+        my $msg = shift;
+        $err .= "$msg"
     };
-    die $self->error_opt ($err) unless $p->getoptions(@_);
+    die $self->error_opt($err) unless $p->getoptions(@_);
 }
 
 
