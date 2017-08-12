@@ -153,8 +153,7 @@ Give options map, processed by L<Getopt::Long::Parser>.
 =cut
 
 sub get_opt {
-    my $self = shift;
-    my $config = shift;
+    my ($self, $config, @app_options) = @_;
     my $p = Getopt::Long::Parser->new;
     $p->configure(@$config);
     my $err = '';
@@ -162,7 +161,7 @@ sub get_opt {
         my $msg = shift;
         $err .= "$msg"
     };
-    die $self->error_opt($err) unless $p->getoptions(@_);
+    die $self->error_opt($err) unless $p->getoptions(@app_options);
 }
 
 
