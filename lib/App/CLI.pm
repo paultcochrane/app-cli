@@ -142,12 +142,12 @@ sub prepare {
         opt_map($data, $self->global_options)
     );
 
-    my $cmd = $self->get_cmd(shift @ARGV, @_, $data);
+    my $command_name = shift @ARGV;
+    my $cmd = $self->get_cmd($command_name, @_, $data);
 
     while ($cmd->cascadable) {
       $cmd = $cmd->cascading;
     }
-
 
     $self->get_opt(
         [qw(no_ignore_case bundling)],
