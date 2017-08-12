@@ -116,8 +116,8 @@ use constant global_options => ();
 use constant options => ();
 
 sub new {
-    my $class = shift;
-    bless {@_}, $class;
+    my ($class, @args) = @_;
+    bless {@args}, $class;
 }
 
 sub prepare {
