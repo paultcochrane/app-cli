@@ -180,13 +180,13 @@ Interface of dispatcher
 =cut
 
 sub dispatch {
-    my $self = shift;
+    my ($self, @args) = @_;
     $self = $self->new unless ref $self;
 
     $self->app($self);
     weaken($self->{app});
 
-    my $cmd = $self->prepare(@_);
+    my $cmd = $self->prepare(@args);
     $cmd->run_command(@ARGV);
 }
 
