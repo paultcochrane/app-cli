@@ -239,8 +239,17 @@ sub get_cmd {
 
 =head1 SEE ALSO
 
+=over 4
+
+=item *
+
 L<App::CLI::Command>
+
+=item *
+
 L<Getopt::Long>
+
+=back
 
 =head1 MODULES USE App::CLI
 
