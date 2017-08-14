@@ -278,7 +278,7 @@ sub get_cmd {
 
     die $self->error_cmd($cmd) unless $pkg->can('run');
 
-    my @arg = %$data;
+    my @arg = defined $data ? %$data : ();
     $cmd = $pkg->new(@arg);
     $cmd->app($self);
     return $cmd;
