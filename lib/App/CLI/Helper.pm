@@ -11,13 +11,11 @@ sub import {
   }
 }
 
-
 =head3 commands()
 
-
+List the application commands.
 
 =cut
-
 
 sub commands {
     my $class = shift;
@@ -39,7 +37,7 @@ sub commands {
 
 =head3 files()
 
-return module files of subcommans of first level
+Return module files of subcommans of first level
 
 =cut
 
