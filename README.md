@@ -29,12 +29,12 @@ make install
 ```
 package MyApp;
 use base 'App::CLI';        # the DISPATCHER of your App
-                            # it's not necessary putting the dispatcher
+                            # it's not necessary to put the dispatcher
                             # on the top level of your App
 
 package main;
 
-MyApp->dispatch;            # call dispatcher in where you want
+MyApp->dispatch;            # call the dispatcher where you want
 
 
 package MyApp::List;
@@ -60,9 +60,9 @@ sub run {
 
     if ($self->{help}) {
         # if $ myapp list --help or $ myapp list -h
-        # just only output PODs
+        # only output PODs
     } else {
-        # do something when imvoking $ my app list
+        # do something when invoking $ myapp list
         # without subcommand and --help
     }
 }
