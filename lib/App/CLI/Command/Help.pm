@@ -60,7 +60,7 @@ sub run {
             $cmd->usage(1);
         }
         elsif (my $file = $self->_find_topic($topic)) {
-            open my $fh, '<:utf8', $file or die $!;
+            open my $fh, '<:encoding(UTF-8)', $file or die $!;
             require Pod::Simple::Text;
             my $parser = Pod::Simple::Text->new;
             my $buf;
