@@ -106,6 +106,8 @@ C<App::CLI> dispatches CLI (command line interface) based commands
 into command classes.  It also supports subcommand and per-command
 options.
 
+=head2 Methods
+
 =cut
 
 
@@ -187,7 +189,7 @@ sub opt_map {
 }
 
 
-=head3
+=head3 dispatch(@args)
 
 Interface of dispatcher
 
