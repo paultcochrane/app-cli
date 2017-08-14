@@ -3,11 +3,13 @@ package App::CLI::Helper;
 use strict;
 use warnings;
 
+use File::Basename qw( basename );
+
 sub import {
     no strict 'refs';
     my $caller = caller;
-    for (qw(commands files)) {
-        *{ $caller . "::$_" } = *$_;
+    for (qw(commands files prog_name)) {
+        *{$caller."::$_"} = *$_;
     }
 }
 
@@ -34,6 +36,28 @@ sub commands {
     my @sorted_cmds = sort @cmds;
 
     return @sorted_cmds;
+}
+
+=head3 prog_name()
+
+The name of the program running your application. This will default to
+C<basename $0>, but can be overridden from within your application.
+
+=cut
+
+{
+  my $default;
+  sub prog_name {
+    my $self = shift;
+
+    $default = basename $0 unless $default;
+    return $default unless ref $self;
+
+    return $self->{prog_name} if defined $self->{prog_name};
+
+    $self->{prog_name} = basename $0;
+    return $self->{prog_name};
+  }
 }
 
 =head3 files()
