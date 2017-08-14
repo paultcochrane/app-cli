@@ -277,13 +277,25 @@ L<Getopt::Long>
 
 =head1 AUTHORS
 
+=over 4
+
+=item *
+
 Chia-liang Kao E<lt>clkao@clkao.orgE<gt>
+
+=item *
 
 Yo-An Lin      E<lt>cornelius.howl@gmail.comE<gt>
 
+=item *
+
 Shelling       E<lt>navyblueshellingford@gmail.comE<gt>
 
+=item *
+
 Paul Cochrane  E<lt>paul@liekut.deE<gt> (current maintainer)
+
+=back
 
 =head1 COPYRIGHT
 
