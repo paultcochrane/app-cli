@@ -20,7 +20,7 @@ List the application commands.
 =cut
 
 sub commands {
-    my $class = shift;
+    my ($class, $include_alias) = @_;
     my $dir = ref($class) || $class;
 
     $dir =~ s{::}{/}g;
@@ -29,7 +29,7 @@ sub commands {
 
     my @cmds = map { ($_) = m{^\Q$dir\E/(.*)\.pm}; lc($_) } $class->files;
 
-    if ( ref $class and $class->can('alias') ) {
+    if ($include_alias and ref $class and $class->can('alias')) {
         my %aliases = $class->alias;
         push @cmds, $_ foreach keys %aliases;
     }
