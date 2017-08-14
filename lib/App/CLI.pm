@@ -273,10 +273,6 @@ L<Getopt::Long>
 
 =back
 
-=head1 MODULES USE App::CLI
-
-L<Jifty::Script>, L<App::gh>, L<App::I18N>
-
 =head1 AUTHORS
 
 Chia-liang Kao E<lt>clkao@clkao.orgE<gt>
