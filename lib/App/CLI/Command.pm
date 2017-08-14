@@ -40,6 +40,7 @@ App::CLI::Command - Base class for App::CLI commands
 
 use constant subcommands => ();
 use constant options => ();
+use constant usage_desc => '%c %C %o';
 
 sub new {
     my $class = shift;
