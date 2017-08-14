@@ -3,9 +3,13 @@ use strict;
 use warnings;
 use Locale::Maketext::Simple;
 use Carp ();
+
 use App::CLI::Helper;
+use App::CLI::Usage;
+
 use Class::Load qw( load_class );
 use Scalar::Util qw( weaken );
+use String::Format;
 
 =head1 NAME
 
@@ -40,6 +44,7 @@ App::CLI::Command - Base class for App::CLI commands
 
 use constant subcommands => ();
 use constant options => ();
+use constant usage_desc => '%c %C %o';
 
 sub new {
     my $class = shift;
@@ -142,49 +147,66 @@ sub app {
 
 =head3 brief_usage ($file)
 
-Display a one-line brief usage of the command object.  Optionally, a file
-could be given to extract the usage from the POD.
+Display a one-line brief usage of the command object.
 
 =cut
 
 sub brief_usage {
-    my ($self, $file) = @_;
-    open my ($podfh), '<', ($file || $self->filename) or return;
-    local $/=undef;
-    my $buf = <$podfh>;
-    my $base = $self->app;
-    if($buf =~ /^=head1\s+NAME\s*\Q$base\E::(\w+ - .+)$/m) {
-        print "   ",loc(lc($1)),"\n";
-    } else {
-        my $cmd = $file ||$self->filename;
-        $cmd =~ s/^(?:.*)\/(.*?).pm$/$1/;
-        print "   ", lc($cmd), " - ",loc("undocumented")."\n";
+    my ($self) = @_;
+
+    my $option_string = q{};
+    my $program_name  = $self->prog_name;
+    my @components    = split /::/, ref $self;
+    my $command_name  = lc pop @components;
+       $command_name  = '<commands>' if ref $self->app eq ref $self;
+
+    my %options;
+    %options = $self->global_options if $self->can('global_options');
+    %options = (%options, $self->options);
+
+    if (%options) {
+      my (@short, @long);
+
+      foreach my $opt (keys %options) {
+        foreach (split qr{\|}, $opt) {
+          (length == 1)
+            ? push @short, $_
+            : push @long,  $_;
+        }
+      }
+
+      $option_string  = '[' . join(q{}, sort @short) . ']' if @short;
+      $option_string .= ' [long options]' if @long;
     }
-    close $podfh;
+
+    return stringf( $self->usage_desc . "\n\n" =>
+        'c' => $program_name,
+        'C' => $command_name,
+        'o' => $option_string,
+    );
 }
 
 =head3 usage ($want_detail)
 
-Display usage.  If C<$want_detail> is true, the C<DESCRIPTION>
+Display usage. If C<$want_detail> is true, the C<DESCRIPTION>
 section is displayed as well.
 
 =cut
 
 sub usage {
     my ($self, $want_detail) = @_;
-    my $fname = $self->filename;
-    my ($cmd) = $fname =~ m{\W(\w+)\.pm$};
-    require Pod::Simple::Text;
-    my $parser = Pod::Simple::Text->new;
-    my $buf;
-    $parser->output_string(\$buf);
-    $parser->parse_file($fname);
 
-    my $base = $self->app;
-    $buf =~ s/\Q$base\E::(\w+)/\l$1/g;
-    $buf =~ s/^AUTHORS.*//sm;
-    $buf =~ s/^DESCRIPTION.*//sm unless $want_detail;
-    print $self->loc_text($buf);
+    my $select = '(?:NAME|SYNOPSIS'
+        . ($want_detail ? '|DESCRIPTION' : '')
+        . ')\s*';
+
+    my $usage = $self->brief_usage;
+
+    my $parser = App::CLI::Usage->new( select => $select );
+    $usage .= $parser->parse_file( $self->filename );
+
+    print $usage;
+    return $usage;
 }
 
 =head3 loc_text $text
@@ -218,6 +240,22 @@ sub loc_text {
         }
     }
     return $out;
+}
+
+=head3 abstract()
+
+Return the parsed abstract of the package implementing this command.
+
+=cut
+
+sub abstract {
+    my ($self) = @_;
+
+    my $parser = App::CLI::Usage->new( select => '(?:NAME)\s*' );
+    my $abstract = $parser->parse_file( $self->filename );
+    $abstract =~ s/Name:[\n\s]*[\w:]+(\s+-\s+)?//m;
+    $abstract =~ s/[\n\s]*$//m;
+    return $abstract;
 }
 
 =head3 filename

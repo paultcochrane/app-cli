@@ -3,10 +3,12 @@ package App::CLI::Helper;
 use strict;
 use warnings;
 
+use File::Basename qw( basename );
+
 sub import {
   no strict 'refs';
   my $caller = caller;
-  for (qw(commands files)) {
+  for (qw(commands files prog_name)) {
     *{$caller."::$_"} = *$_;
   }
 }
@@ -20,7 +22,7 @@ sub import {
 
 
 sub commands {
-    my $class = shift;
+    my ($class, $include_alias) = @_;
     my $dir = ref($class) || $class;
 
     $dir =~ s{::}{/}g;
@@ -29,12 +31,34 @@ sub commands {
 
     my @cmds = map { ($_) = m{^\Q$dir\E/(.*)\.pm}; lc($_) } $class->files;
 
-    if (ref $class and $class->can('alias')) {
+    if ($include_alias and ref $class and $class->can('alias')) {
         my %aliases = $class->alias;
         push @cmds, $_ foreach keys %aliases;
     }
 
     return sort @cmds;
+}
+
+=head3 prog_name()
+
+The name of the program running your application. This will default to
+C<basename $0>, but can be overiden from within your application.
+
+=cut
+
+{
+  my $default;
+  sub prog_name {
+    my $self = shift;
+
+    $default = basename $0 unless $default;
+    return $default unless ref $self;
+
+    return $self->{prog_name} if defined $self->{prog_name};
+
+    $self->{prog_name} = basename $0;
+    return $self->{prog_name};
+  }
 }
 
 =head3 files()
