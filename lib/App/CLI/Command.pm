@@ -217,6 +217,22 @@ sub loc_text {
     return $out;
 }
 
+=head3 abstract()
+
+Return the parsed abstract of the package implementing this command.
+
+=cut
+
+sub abstract {
+    my ($self) = @_;
+
+    my $parser = App::CLI::Usage->new( select => '(?:NAME)\s*' );
+    my $abstract = $parser->parse_file( $self->filename );
+    $abstract =~ s/Name:[\n\s]*[\w:]+(\s+-\s+)?//m;
+    $abstract =~ s/[\n\s]*$//m;
+    return $abstract;
+}
+
 =head3 filename
 
 Return the filename for the command module.
