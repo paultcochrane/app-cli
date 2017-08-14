@@ -17,12 +17,11 @@ WriteMakefile(
     ],
     LICENSE   => "perl_5",
     PREREQ_PM => {
-        'Locale::Maketext::Simple' => 0,
         'Getopt::Long'             => '2.35',
-        'Pod::Simple::Text'        => 0,
         'Carp'                     => 0,
         'File::Find'               => 0,
         'Class::Load'              => 0,
+        'String::Format'           => 0,
     },
     MIN_PERL_VERSION => 5.006,
     TEST_REQUIRES    => {
