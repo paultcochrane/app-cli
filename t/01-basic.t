@@ -30,7 +30,8 @@ like(
 );
 
 is_deeply ([MyApp->commands],
-	   ['help', 'test']);
+	   ['help', 'test'],
+           'expected commands in test app');
 
 {
     local *ARGV = ['test'];
