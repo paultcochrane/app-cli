@@ -1,5 +1,6 @@
 package MyApp;
 use strict;
+use warnings;
 use base qw(App::CLI App::CLI::Command);
 
 use constant alias => ( te => 'test' );

@@ -1,5 +1,6 @@
 package MyApp::Test;
 use strict;
+use warnings;
 use base qw(MyApp);
 use CLITest;
 use constant subcommands => qw(hate Cascading);
