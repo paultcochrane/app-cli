@@ -31,8 +31,9 @@ sub commands {
         my %aliases = $class->alias;
         push @cmds, $_ foreach keys %aliases;
     }
+    my @sorted_cmds = sort @cmds;
 
-    return sort @cmds;
+    return @sorted_cmds;
 }
 
 =head3 files()
@@ -47,7 +48,9 @@ sub files {
     $class =~ s{::}{/}g;
     my $dir = $INC{$class.'.pm'};
     $dir =~ s/\.pm$//;
-    return sort glob("$dir/*.pm");
+    my @sorted_files = sort glob("$dir/*.pm");
+
+    return @sorted_files;
 }
 
 
