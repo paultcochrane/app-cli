@@ -75,7 +75,7 @@ sub subcommand {
       no strict 'refs';
       if (exists ${ref($self).'::'}{$_.'::'}) {
         my %data = %{$self};
-	$subcmd = bless ({%data}, (ref($self)."::$_"));
+        $subcmd = bless ({%data}, (ref($self)."::$_"));
         last;
       }
     }
