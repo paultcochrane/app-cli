@@ -30,7 +30,7 @@ like(
 );
 
 is_deeply ([MyApp->commands],
-	   ['help', 'test'],
+           ['help', 'test'],
            'expected commands in test app');
 
 {
@@ -63,7 +63,7 @@ is_deeply ([MyApp->commands],
     local *ARGV = ['test', '--hate', 'arg', '--verbose'];
     MyApp->dispatch;
     is_deeply (clicheck, [qw(MyApp::Test::hate MyApp::Test::hate::run), 'v', 'hate', 'arg'],
-	       'subcommand with option and arg');
+               'subcommand with option and arg');
 }
 
 {
