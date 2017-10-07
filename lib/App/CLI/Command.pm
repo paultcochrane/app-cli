@@ -46,17 +46,9 @@ sub new {
     bless {@_}, $class;
 }
 
-
-
 sub command_options {
     ((map { $_ => $_ } $_[0]->subcommands), $_[0]->options);
 }
-
-# XXX:
-sub _mk_completion_sh { }
-sub _mk_completion_zsh { }
-
-
 
 sub run_command {
     my $self = shift;
