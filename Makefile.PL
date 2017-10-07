@@ -23,6 +23,7 @@ WriteMakefile(
         'Carp'                     => 0,
         'File::Find'               => 0,
         'Class::Load'              => 0,
+        'Capture::Tiny'            => 0,
     },
     MIN_PERL_VERSION => 5.006,
     TEST_REQUIRES    => {
