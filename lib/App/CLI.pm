@@ -208,18 +208,41 @@ sub dispatch {
 
 =head3 cmd_map($cmd)
 
-Find package name of subcommand in constant C<%alias>.
+Find the name of the package implementing the requested command.
 
-If it's found, return C<ucfirst> of the package name, otherwise, return
-C<ucfirst> of C<$cmd> itself.
+The command is first searched for in C<alias>. If the alias exists and points
+to a package name starting with the C<+> sign, then that package name (minus
+the C<+> sign) is returned. This makes it possible to map commands to arbitrary
+packages.
+
+Otherwise, the package is searched for in the result of calling C<commands>,
+and a package name is constructed by upper-casing the first character of the
+command name, and appending it to the package name of the app itself.
+
+If both of these fail, and the command does not map to any package name,
+C<undef> is returned instead.
 
 =cut
 
 sub cmd_map {
-    my ($pkg, $cmd) = @_;
-    my %alias = $pkg->alias;
-    $cmd = $alias{$cmd} if exists $alias{$cmd};
-    return ucfirst($cmd);
+    my ($self, $cmd) = @_;
+
+    my %alias = $self->alias;
+
+    if (exists $alias{$cmd}) {
+        $cmd = $alias{$cmd};
+
+        # Alias points to package name, return immediately
+        return $cmd if $cmd =~ s/^\+//;
+    }
+
+    ($cmd) = grep { $_ eq $cmd } $self->commands;
+
+    # No such command
+    return unless $cmd;
+
+    my $base = ref $self->app;
+    return join '::', $base, ucfirst $cmd;
 }
 
 sub error_cmd {
@@ -252,7 +275,10 @@ sub get_cmd {
     die $self->error_cmd($cmd) unless $cmd && $cmd eq lc($cmd);
 
     my $base = ref $self;
-    my $pkg = join('::', $base, $self->cmd_map($cmd));
+    my $pkg = $self->cmd_map($cmd);
+
+    die $self->error_cmd($cmd) unless $pkg;
+
     load_class $pkg;
 
     die $self->error_cmd($cmd) unless $pkg->can('run');
