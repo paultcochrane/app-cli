@@ -110,16 +110,15 @@ options.
 
 =cut
 
-
 use App::CLI::Helper;
 use Getopt::Long ();
 
-use constant alias => ();
+use constant alias          => ();
 use constant global_options => ();
-use constant options => ();
+use constant options        => ();
 
 sub new {
-    my ($class, @args) = @_;
+    my ( $class, @args ) = @_;
     my $self = bless {@args}, $class;
     $self->{'app_argv'} = undef;
 
@@ -142,20 +141,18 @@ sub prepare {
 
     $self->get_opt(
         [qw(no_ignore_case bundling pass_through)],
-        opt_map($data, $self->global_options)
+        opt_map( $data, $self->global_options )
     );
 
     my $command_name = shift @ARGV;
-    my $cmd = $self->get_cmd($command_name, @_, $data);
+    my $cmd = $self->get_cmd( $command_name, @_, $data );
 
-    while ($cmd->cascadable) {
-      $cmd = $cmd->cascading;
+    while ( $cmd->cascadable ) {
+        $cmd = $cmd->cascading;
     }
 
-    $self->get_opt(
-        [qw(no_ignore_case bundling)],
-        opt_map($cmd, $cmd->command_options)
-    );
+    $self->get_opt( [qw(no_ignore_case bundling)],
+        opt_map( $cmd, $cmd->command_options ) );
 
     $cmd = $cmd->subcommand;
 
@@ -169,7 +166,7 @@ Give options map, processed by L<Getopt::Long::Parser>.
 =cut
 
 sub get_opt {
-    my ($self, $config, @app_options) = @_;
+    my ( $self, $config, @app_options ) = @_;
     my $p = Getopt::Long::Parser->new;
     $p->configure(@$config);
     my $err = '';
@@ -178,16 +175,15 @@ sub get_opt {
         $err .= "$msg";
     };
     my @current_argv = @ARGV;
-    $self->app_argv(\@current_argv);
+    $self->app_argv( \@current_argv );
     die $self->error_opt($err) unless $p->getoptions(@app_options);
 }
 
-
 sub opt_map {
-    my ($self, %opt) = @_;
-    return map { $_ => ref($opt{$_}) ? $opt{$_} : \$self->{$opt{$_}}} keys %opt;
+    my ( $self, %opt ) = @_;
+    return
+      map { $_ => ref( $opt{$_} ) ? $opt{$_} : \$self->{ $opt{$_} } } keys %opt;
 }
-
 
 =head3 dispatch(@args)
 
@@ -196,7 +192,7 @@ Interface of dispatcher
 =cut
 
 sub dispatch {
-    my ($self, @args) = @_;
+    my ( $self, @args ) = @_;
     $self = $self->new unless ref $self;
 
     $self->app($self) if $self->can('app');
@@ -204,7 +200,6 @@ sub dispatch {
     my $cmd = $self->prepare(@args);
     $cmd->run_command(@ARGV);
 }
-
 
 =head3 cmd_map($cmd)
 
@@ -216,21 +211,21 @@ C<ucfirst> of C<$cmd> itself.
 =cut
 
 sub cmd_map {
-    my ($pkg, $cmd) = @_;
+    my ( $pkg, $cmd ) = @_;
     my %alias = $pkg->alias;
     $cmd = $alias{$cmd} if exists $alias{$cmd};
     return ucfirst($cmd);
 }
 
 sub error_cmd {
-    my ($self, $pkg) = @_;
+    my ( $self, $pkg ) = @_;
 
     my $cmd;
-    if (defined($pkg)) {
+    if ( defined($pkg) ) {
         $cmd = ref($pkg) || $pkg;
     }
-    elsif (${$self->app_argv}[0]) {
-        $cmd = ${$self->app_argv}[0];
+    elsif ( ${ $self->app_argv }[0] ) {
+        $cmd = ${ $self->app_argv }[0];
     }
     else {
         $cmd = '<empty command>';
@@ -248,11 +243,11 @@ Return subcommand of first level via C<$ARGV[0]>.
 =cut
 
 sub get_cmd {
-    my ($self, $cmd, $data) = @_;
+    my ( $self, $cmd, $data ) = @_;
     die $self->error_cmd($cmd) unless $cmd && $cmd eq lc($cmd);
 
     my $base = ref $self;
-    my $pkg = join('::', $base, $self->cmd_map($cmd));
+    my $pkg = join( '::', $base, $self->cmd_map($cmd) );
     load_class $pkg;
 
     die $self->error_cmd($cmd) unless $pkg->can('run');
@@ -262,7 +257,6 @@ sub get_cmd {
     $cmd->app($self);
     return $cmd;
 }
-
 
 =head1 SEE ALSO
 

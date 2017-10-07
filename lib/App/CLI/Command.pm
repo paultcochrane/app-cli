@@ -39,7 +39,7 @@ App::CLI::Command - Base class for App::CLI commands
 =cut
 
 use constant subcommands => ();
-use constant options => ();
+use constant options     => ();
 
 sub new {
     my $class = shift;
@@ -47,7 +47,7 @@ sub new {
 }
 
 sub command_options {
-    ((map { $_ => $_ } $_[0]->subcommands), $_[0]->options);
+    ( ( map { $_ => $_ } $_[0]->subcommands ), $_[0]->options );
 }
 
 sub run_command {
@@ -56,8 +56,8 @@ sub run_command {
 }
 
 sub run {
-  my $class = shift;
-  Carp::croak ref($class) . " does not implement mandatory method 'run'\n";
+    my $class = shift;
+    Carp::croak ref($class) . " does not implement mandatory method 'run'\n";
 }
 
 =head3 subcommand()
@@ -68,16 +68,16 @@ sub run {
 
 sub subcommand {
     my $self = shift;
-    my @cmd = $self->subcommands;
-    @cmd = values %{{$self->options}} if @cmd && $cmd[0] eq '*';
+    my @cmd  = $self->subcommands;
+    @cmd = values %{ { $self->options } } if @cmd && $cmd[0] eq '*';
     my $subcmd = undef;
-    for (grep {$self->{$_}} @cmd) {
-      no strict 'refs';
-      if (exists ${ref($self).'::'}{$_.'::'}) {
-        my %data = %{$self};
-        $subcmd = bless ({%data}, (ref($self)."::$_"));
-        last;
-      }
+    for ( grep { $self->{$_} } @cmd ) {
+        no strict 'refs';
+        if ( exists ${ ref($self) . '::' }{ $_ . '::' } ) {
+            my %data = %{$self};
+            $subcmd = bless( {%data}, ( ref($self) . "::$_" ) );
+            last;
+        }
     }
     $subcmd ? $subcmd : $self;
 }
@@ -90,14 +90,15 @@ constant subcommands.
 =cut
 
 sub cascading {
-  my $self = shift;
-  if (my $subcmd = $self->cascadable) {
-    shift @ARGV;
-    my %data = %{$self};
-    return bless {%data}, $subcmd;
-  } else {
-    die $self->error_cmd($ARGV[0]);
-  }
+    my $self = shift;
+    if ( my $subcmd = $self->cascadable ) {
+        shift @ARGV;
+        my %data = %{$self};
+        return bless {%data}, $subcmd;
+    }
+    else {
+        die $self->error_cmd( $ARGV[0] );
+    }
 }
 
 =head3 cascadable()
@@ -108,17 +109,20 @@ constant subcommands, otherwise, return C<undef>.
 =cut
 
 sub cascadable {
-  my $self = shift;
-  my $class = ref $self || $self;
-  for ($self->subcommands) {
-    no strict 'refs';
-    my $package_name = $class . '::' . $_;
-    load_class $package_name;
-    if ($ARGV[0] and ucfirst($ARGV[0]) eq $_ && exists ${$class . '::'}{$_ . '::'}) {
-      return $package_name;
+    my $self = shift;
+    my $class = ref $self || $self;
+    for ( $self->subcommands ) {
+        no strict 'refs';
+        my $package_name = $class . '::' . $_;
+        load_class $package_name;
+        if ( $ARGV[0]
+            and ucfirst( $ARGV[0] ) eq $_
+            && exists ${ $class . '::' }{ $_ . '::' } )
+        {
+            return $package_name;
+        }
     }
-  }
-  return undef;
+    return undef;
 }
 
 sub app {
@@ -126,7 +130,7 @@ sub app {
 
     if (@_) {
         $self->{app} = shift;
-        weaken($self->{app});
+        weaken( $self->{app} );
     }
 
     return $self->{app};
@@ -140,17 +144,18 @@ could be given to extract the usage from the POD.
 =cut
 
 sub brief_usage {
-    my ($self, $file) = @_;
-    open my ($podfh), '<', ($file || $self->filename) or return;
-    local $/=undef;
-    my $buf = <$podfh>;
+    my ( $self, $file ) = @_;
+    open my ($podfh), '<', ( $file || $self->filename ) or return;
+    local $/ = undef;
+    my $buf  = <$podfh>;
     my $base = $self->app;
-    if($buf =~ /^=head1\s+NAME\s*\Q$base\E::(\w+ - .+)$/m) {
-        print "   ",loc(lc($1)),"\n";
-    } else {
-        my $cmd = $file ||$self->filename;
+    if ( $buf =~ /^=head1\s+NAME\s*\Q$base\E::(\w+ - .+)$/m ) {
+        print "   ", loc( lc($1) ), "\n";
+    }
+    else {
+        my $cmd = $file || $self->filename;
         $cmd =~ s/^(?:.*)\/(.*?).pm$/$1/;
-        print "   ", lc($cmd), " - ",loc("undocumented")."\n";
+        print "   ", lc($cmd), " - ", loc("undocumented") . "\n";
     }
     close $podfh;
 }
@@ -163,13 +168,13 @@ section is displayed as well.
 =cut
 
 sub usage {
-    my ($self, $want_detail) = @_;
+    my ( $self, $want_detail ) = @_;
     my $fname = $self->filename;
     my ($cmd) = $fname =~ m{\W(\w+)\.pm$};
     require Pod::Simple::Text;
     my $parser = Pod::Simple::Text->new;
     my $buf;
-    $parser->output_string(\$buf);
+    $parser->output_string( \$buf );
     $parser->parse_file($fname);
 
     my $base = $self->app;
@@ -188,24 +193,24 @@ localized version.
 
 sub loc_text {
     my $self = shift;
-    my $buf = shift;
+    my $buf  = shift;
 
     my $out = "";
-    foreach my $line (split(/\n\n+/, $buf, -1)) {
-        if (my @lines = $line =~ /^( {4}\s+.+\s*)$/mg) {
+    foreach my $line ( split( /\n\n+/, $buf, -1 ) ) {
+        if ( my @lines = $line =~ /^( {4}\s+.+\s*)$/mg ) {
             foreach my $chunk (@lines) {
                 $chunk =~ /^(\s*)(.+?)( *)(: .+?)?(\s*)$/ or next;
                 my $spaces = $3;
-                my $loc = $1 . loc($2 . ($4||'')) . $5;
+                my $loc = $1 . loc( $2 . ( $4 || '' ) ) . $5;
                 $loc =~ s/: /$spaces: / if $spaces;
                 $out .= $loc . "\n";
             }
             $out .= "\n";
         }
-        elsif ($line =~ /^(\s+)(\w+ - .*)$/) {
+        elsif ( $line =~ /^(\s+)(\w+ - .*)$/ ) {
             $out .= $1 . loc($2) . "\n\n";
         }
-        elsif (length $line) {
+        elsif ( length $line ) {
             $out .= loc($line) . "\n\n";
         }
     }
@@ -219,13 +224,12 @@ Return the filename for the command module.
 =cut
 
 sub filename {
-    my $self = shift;
+    my $self  = shift;
     my $fname = ref($self);
-    $fname =~ s{::[a-z]+$}{}; # subcommand
+    $fname =~ s{::[a-z]+$}{};    # subcommand
     $fname =~ s{::}{/}g;
     return $INC{"$fname.pm"};
 }
-
 
 =head1 SEE ALSO
 

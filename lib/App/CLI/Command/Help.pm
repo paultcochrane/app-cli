@@ -47,31 +47,31 @@ To add help message, just add POD in the command class:
 =cut
 
 sub run {
-    my $self = shift;
+    my $self   = shift;
     my @topics = @_;
 
     push @topics, 'commands' unless (@topics);
 
     foreach my $topic (@topics) {
-        if ($topic eq 'commands') {
-            $self->brief_usage ($_) for $self->app->files;
+        if ( $topic eq 'commands' ) {
+            $self->brief_usage($_) for $self->app->files;
         }
-        elsif (my $cmd = eval { $self->app->get_cmd ($topic) }) {
+        elsif ( my $cmd = eval { $self->app->get_cmd($topic) } ) {
             $cmd->usage(1);
         }
-        elsif (my $file = $self->_find_topic($topic)) {
+        elsif ( my $file = $self->_find_topic($topic) ) {
             open my $fh, '<:encoding(UTF-8)', $file or die $!;
             require Pod::Simple::Text;
             my $parser = Pod::Simple::Text->new;
             my $buf;
-            $parser->output_string(\$buf);
+            $parser->output_string( \$buf );
             $parser->parse_file($fh);
 
             $buf =~ s/^NAME\s+(.*?)::Help::\S+ - (.+)\s+DESCRIPTION/    $2:/;
             print $self->loc_text($buf);
         }
         else {
-            die loc("Cannot find help topic '%1'.\n", $topic);
+            die loc( "Cannot find help topic '%1'.\n", $topic );
         }
     }
     return;
@@ -79,29 +79,30 @@ sub run {
 
 sub help_base {
     my $self = shift;
-    return $self->app."::Help";
+    return $self->app . "::Help";
 }
 
-my ($inc, @prefix);
-sub _find_topic {
-    my ($self, $topic) = @_;
+my ( $inc, @prefix );
 
-    if (!$inc) {
+sub _find_topic {
+    my ( $self, $topic ) = @_;
+
+    if ( !$inc ) {
         my $pkg = __PACKAGE__;
         $pkg =~ s{::}{/};
         $inc = substr( __FILE__, 0, -length("$pkg.pm") );
 
         my $base = $self->help_base;
-        @prefix = (loc($base));
+        @prefix = ( loc($base) );
         $prefix[0] =~ s{::}{/}g;
         $base =~ s{::}{/}g;
         push @prefix, $base if $prefix[0] ne $base;
     }
 
-    foreach my $dir ($inc, @INC) {
+    foreach my $dir ( $inc, @INC ) {
         foreach my $prefix (@prefix) {
-            foreach my $basename (ucfirst(lc($topic)), uc($topic)) {
-                foreach my $ext ('pod', 'pm') {
+            foreach my $basename ( ucfirst( lc($topic) ), uc($topic) ) {
+                foreach my $ext ( 'pod', 'pm' ) {
                     my $file = "$dir/$prefix/$basename.$ext";
                     return $file if -f $file;
                 }
