@@ -16,7 +16,7 @@ eval {
 like(
     $@,
     qr/Command '--help' not recognized, try/,
-    "Raise error on unrecognized command"
+    "raise error on unrecognized command"
 );
 
 is_deeply ([MyApp->commands],
