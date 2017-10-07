@@ -126,7 +126,7 @@ sub cascadable {
       return $package_name;
     }
   }
-  return undef
+  return undef;
 }
 
 sub app {

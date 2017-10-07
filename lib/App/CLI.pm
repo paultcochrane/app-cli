@@ -175,7 +175,7 @@ sub get_opt {
     my $err = '';
     local $SIG{__WARN__} = sub {
         my $msg = shift;
-        $err .= "$msg"
+        $err .= "$msg";
     };
     my @current_argv = @ARGV;
     $self->app_argv(\@current_argv);
