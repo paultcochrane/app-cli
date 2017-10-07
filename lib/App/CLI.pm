@@ -229,8 +229,11 @@ sub error_cmd {
     if (defined($pkg)) {
         $cmd = ref($pkg) || $pkg;
     }
-    else {
+    elsif (${$self->app_argv}[0]) {
         $cmd = ${$self->app_argv}[0];
+    }
+    else {
+        $cmd = '<empty command>';
     }
 
     return "Command '$cmd' not recognized, try $0 --help.\n";

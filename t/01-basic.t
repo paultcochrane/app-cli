@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 11;
+use Test::More tests => 12;
 use lib qw(t/lib);
 use CLITest;
 
@@ -17,6 +17,16 @@ like(
     $@,
     qr/Command '--help' not recognized, try/,
     "raise error on unrecognized command"
+);
+
+eval {
+    my $app = MyApp->new;
+    $app->dispatch;
+};
+like(
+    $@,
+    qr/Command '<empty command>' not recognized/,
+    "raise error on empty command"
 );
 
 is_deeply ([MyApp->commands],
