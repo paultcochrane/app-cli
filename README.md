@@ -1,5 +1,8 @@
 # App::CLI - Dispatcher module for command line interface programs
 
+[![Coverage
+Status](https://coveralls.io/repos/github/paultcochrane/app-cli/badge.svg)](https://coveralls.io/github/paultcochrane/app-cli)
+
 `App::CLI` dispatches CLI (command line interface) based commands
 into command classes.  It also supports subcommand and per-command
 options.
