@@ -13,3 +13,4 @@ shipit
 .*\.swp$
 \.travis\.yml
 ^cover_db
+\.coveralls\.yml

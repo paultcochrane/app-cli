@@ -11,3 +11,4 @@ cover_db/
 MANIFEST
 App-CLI-*.tar.gz
 MYMETA.*
+.coveralls.yml
