@@ -14,5 +14,9 @@ perl:
     - "5.12"
     - "5.10"
 
+before_install:
+      cpanm -n Devel::Cover::Report::Coveralls
+
 script:
-    perl Makefile.PL && make manifest && make test
+    - perl Makefile.PL && make manifest && make test
+    - cover -test -report coveralls
