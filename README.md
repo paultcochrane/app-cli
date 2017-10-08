@@ -2,6 +2,8 @@
 
 [![Coverage
 Status](https://coveralls.io/repos/github/paultcochrane/app-cli/badge.svg)](https://coveralls.io/github/paultcochrane/app-cli)
+[![Build
+Status](https://travis-ci.org/paultcochrane/app-cli.svg?branch=0.32)](https://travis-ci.org/paultcochrane/app-cli)
 
 `App::CLI` dispatches CLI (command line interface) based commands
 into command classes.  It also supports subcommand and per-command
