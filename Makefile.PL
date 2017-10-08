@@ -17,6 +17,10 @@ WriteMakefile(
     ],
     LICENSE   => "perl_5",
     PREREQ_PM => {
+        'strict'                   => 0,
+        'warnings'                 => 0,
+        'base'                     => 0,
+        'constant'                 => 0,
         'Locale::Maketext::Simple' => 0,
         'Getopt::Long'             => '2.35',
         'Pod::Simple::Text'        => 0,
@@ -24,9 +28,11 @@ WriteMakefile(
         'File::Find'               => 0,
         'Class::Load'              => 0,
         'Capture::Tiny'            => 0,
+        'Scalar::Util'             => 0,
     },
     MIN_PERL_VERSION => 5.006,
     TEST_REQUIRES    => {
+        'lib'            => 0,
         'Test::More'     => 0,
         'Test::Kwalitee' => 0,
     },
