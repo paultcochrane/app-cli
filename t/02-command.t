@@ -65,7 +65,7 @@ subtest "usage() behaviour" => sub {
 };
 
 subtest "version() behaviour" => sub {
-    plan tests => 1;
+    plan tests => 2;
 
     my $output = capture_stdout {
         local *ARGV = ['version'];
@@ -77,6 +77,18 @@ subtest "version() behaviour" => sub {
         $output,
         '02-command.t (MyCompleteApp) version 0.1 (t/02-command.t)',
         "version command shows version information"
+    );
+
+    $output = capture_stdout {
+        local *ARGV = ['--version'];
+        my $command = MyCompleteApp->new();
+        $command->dispatch();
+    };
+    chomp $output;
+    is(
+        $output,
+        '02-command.t (MyCompleteApp) version 0.1 (t/02-command.t)',
+        "--version command shows version information"
     );
 };
 
