@@ -35,7 +35,7 @@ sub run {
     my ($self) = shift;
     no strict 'refs';
     print sprintf "%s (%s) version %s (%s)\n",
-        $self->app->prog_name, ref $self->app, $self->app->VERSION, $0;
+      $self->app->prog_name, ref $self->app, $self->app->VERSION, $0;
 }
 
 1;

@@ -9,7 +9,7 @@ sub import {
     no strict 'refs';
     my $caller = caller;
     for (qw(commands files prog_name)) {
-        *{$caller."::$_"} = *$_;
+        *{ $caller . "::$_" } = *$_;
     }
 }
 
@@ -20,7 +20,7 @@ List the application commands.
 =cut
 
 sub commands {
-    my ($class, $include_alias) = @_;
+    my ( $class, $include_alias ) = @_;
     my $dir = ref($class) || $class;
 
     $dir =~ s{::}{/}g;
@@ -29,7 +29,7 @@ sub commands {
 
     my @cmds = map { ($_) = m{^\Q$dir\E/(.*)\.pm}; lc($_) } $class->files;
 
-    if ($include_alias and ref $class and $class->can('alias')) {
+    if ( $include_alias and ref $class and $class->can('alias') ) {
         my %aliases = $class->alias;
         push @cmds, $_ foreach keys %aliases;
     }
@@ -46,18 +46,19 @@ C<basename $0>, but can be overridden from within your application.
 =cut
 
 {
-  my $default;
-  sub prog_name {
-    my $self = shift;
+    my $default;
 
-    $default = basename $0 unless $default;
-    return $default unless ref $self;
+    sub prog_name {
+        my $self = shift;
 
-    return $self->{prog_name} if defined $self->{prog_name};
+        $default = basename $0 unless $default;
+        return $default unless ref $self;
 
-    $self->{prog_name} = basename $0;
-    return $self->{prog_name};
-  }
+        return $self->{prog_name} if defined $self->{prog_name};
+
+        $self->{prog_name} = basename $0;
+        return $self->{prog_name};
+    }
 }
 
 =head3 files()

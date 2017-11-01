@@ -5,9 +5,11 @@ use base qw(App::CLI App::CLI::Command);
 
 use constant alias => ( te => 'test' );
 
-use constant global_options => ( 'help' => 'help',
-				 'username=s' => 'username',
-				 'force' => 'force' );
+use constant global_options => (
+    'help'       => 'help',
+    'username=s' => 'username',
+    'force'      => 'force'
+);
 
 =head1 NAME
 
@@ -22,6 +24,5 @@ MyDocumentedApp - my command line app with docs
 Me, Myself, I
 
 =cut
-
 
 1;

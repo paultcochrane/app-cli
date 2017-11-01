@@ -30,14 +30,15 @@ Print a list of commands registered for your application;
 sub run {
     my ($self) = shift;
 
-    my ($longest) = sort {length($b) cmp length($a)} $self->app->commands;
+    my ($longest) = sort { length($b) cmp length($a) } $self->app->commands;
     $longest = length $longest;
 
-    foreach ($self->app->commands) {
-        my $cmd = $self->app->get_cmd($_);
+    foreach ( $self->app->commands ) {
+        my $cmd        = $self->app->get_cmd($_);
         my @components = split /::/, ref $cmd;
-        my $name = lc pop @components;
-        printf "    %${longest}s: %s\n", $name, lc($cmd->abstract) || '[ undocumented ]';
+        my $name       = lc pop @components;
+        printf "    %${longest}s: %s\n", $name,
+          lc( $cmd->abstract ) || '[ undocumented ]';
     }
     print "\n";
 }

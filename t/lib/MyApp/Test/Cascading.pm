@@ -6,8 +6,8 @@ use CLITest;
 use constant subcommands => qw(Infinite);
 
 sub run {
-  my $self = shift;
-  cliack;
+    my $self = shift;
+    cliack;
 }
 
 1;

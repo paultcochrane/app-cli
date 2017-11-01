@@ -220,11 +220,11 @@ C<undef> is returned instead.
 =cut
 
 sub cmd_map {
-    my ($self, $cmd) = @_;
+    my ( $self, $cmd ) = @_;
 
     my %alias = $self->alias;
 
-    if (exists $alias{$cmd}) {
+    if ( exists $alias{$cmd} ) {
         $cmd = $alias{$cmd};
 
         # Alias points to package name, return immediately
@@ -270,7 +270,7 @@ sub get_cmd {
     die $self->error_cmd($cmd) unless $cmd && $cmd eq lc($cmd);
 
     my $base = ref $self;
-    my $pkg = $self->cmd_map($cmd);
+    my $pkg  = $self->cmd_map($cmd);
 
     die $self->error_cmd($cmd) unless $pkg;
 

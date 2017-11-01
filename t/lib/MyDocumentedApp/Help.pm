@@ -5,7 +5,7 @@ use strict;
 use warnings;
 
 sub run {
-    my ($self, @args) = @_;
+    my ( $self, @args ) = @_;
 }
 
 1;
