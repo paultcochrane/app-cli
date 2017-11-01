@@ -5,6 +5,7 @@
 \.coveralls\.yml
 ^\.git
 \.travis\.yml
+\.releaserc
 .tar.gz$
 ^blib
 ^cover_db

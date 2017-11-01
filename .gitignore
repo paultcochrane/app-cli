@@ -2,6 +2,7 @@
 *.bak
 *.sw[po]
 .coveralls.yml
+.releaserc
 App-CLI-*.tar.gz
 Makefile
 Makefile.old
