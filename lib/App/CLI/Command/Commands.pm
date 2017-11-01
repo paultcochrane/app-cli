@@ -16,7 +16,7 @@ App::CLI::Command::Commands - Print a list of commands for your app
 
     # Make your app get a list of commands
     use constant alias => (
-        commands => 'App::CLI::Command::Commands',
+        commands => '+App::CLI::Command::Commands',
     );
 
     1;
