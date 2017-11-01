@@ -1,3 +1,10 @@
+0.47 Wed Nov 01 22:31:41 CET 2017
+
+  * add missing prereqs
+  * add missing LICENSE file
+  * add POD tests
+  * fix utf8 error in POD
+
 0.46  Wed Nov 01 20:21:58 CEST 2017
 
   * many documentation updates
