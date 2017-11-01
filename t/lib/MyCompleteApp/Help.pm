@@ -1,4 +1,4 @@
-package MyDocumentedApp::Help;
+package MyCompleteApp::Help;
 use base 'App::CLI::Command';
 
 use strict;

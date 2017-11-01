@@ -1,4 +1,4 @@
-package MyDocumentedApp;
+package MyCompleteApp;
 use strict;
 use warnings;
 use base qw(App::CLI App::CLI::Command);
@@ -13,11 +13,11 @@ use constant global_options => (
 
 =head1 NAME
 
-MyDocumentedApp - my command line app with docs
+MyCompleteApp - my command line app with docs, version, etc.
 
 =head1 SYNOPSIS
 
-    use MyDocumentedApp;
+    use MyCompleteApp;
 
 =head1 AUTHORS
 

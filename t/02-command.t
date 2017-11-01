@@ -9,7 +9,7 @@ use Capture::Tiny qw(capture_stdout);
 
 use App::CLI::Command;
 use MyApp;
-use MyDocumentedApp;
+use MyCompleteApp;
 
 eval {
     my $command = App::CLI::Command->new();
@@ -53,11 +53,11 @@ subtest "usage() behaviour" => sub {
 
     $output = capture_stdout {
         local *ARGV = ['help'];
-        my $command = MyDocumentedApp->new();
+        my $command = MyCompleteApp->new();
         $command->dispatch();
         $command->usage;
     };
-    like( $output, qr/NAME\s+MyDocumentedApp/m,
+    like( $output, qr/NAME\s+MyCompleteApp/m,
         "documented command displays usage text" );
 
     # what to expect with docs in app?
