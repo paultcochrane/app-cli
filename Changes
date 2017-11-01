@@ -1,3 +1,13 @@
+0.46  Wed Nov 01 19:37:39 CEST 2017
+
+  * many documentation updates
+  * extended test suite
+  * fix several perlcritic issues
+  * mention package aliases in command list (José Joaquín Atria)
+  * add default version command (José Joaquín Atria)
+  * add a 'commands' command to list commands in app (José Joaquín Atria)
+  * multiple general improvements to the code (José Joaquín Atria)
+
 0.45  Wed Jun 28 23:05:58 CEST 2017
 
   * use a version number in the original style
