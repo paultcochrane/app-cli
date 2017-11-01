@@ -5,7 +5,7 @@ use warnings;
 use 5.006;
 use Class::Load qw( load_class );
 
-our $VERSION = '0.45';
+our $VERSION = '0.46';
 
 =head1 NAME
 
