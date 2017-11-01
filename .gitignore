@@ -6,7 +6,6 @@ App-CLI-*.tar.gz
 Makefile
 Makefile.old
 Makefile.PL.old
-MANIFEST
 META.yml
 MYMETA.*
 blib
