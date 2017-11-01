@@ -324,6 +324,18 @@ Paul Cochrane  E<lt>paul@liekut.deE<gt> (current maintainer)
 
 =back
 
+=head1 CONTRIBUTORS
+
+The following people have contributed patches to the project:
+
+=over 4
+
+=item *
+
+José Joaquín Atria E<lt>jjatria@gmail.comE<gt>
+
+=back
+
 =head1 COPYRIGHT
 
 Copyright 2005-2010 by Chia-liang Kao E<lt>clkao@clkao.orgE<gt>.
