@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 4;
+use Test::More tests => 5;
 use lib qw(t/lib);
 use Capture::Tiny qw(capture_stdout);
 
@@ -90,6 +90,23 @@ subtest "version() behaviour" => sub {
         '02-command.t (MyCompleteApp) version 0.1 (t/02-command.t)',
         "--version command shows version information"
     );
+};
+
+subtest "commands() behaviour" => sub {
+    plan tests => 1;
+
+    my $output = capture_stdout {
+        local *ARGV = ['commands'];
+        my $command = MyCompleteApp->new();
+        $command->dispatch();
+    };
+    chomp $output;
+    is(
+        $output,
+        '    help',
+        "commands command shows available commands in app"
+    );
+
 };
 
 # vim: expandtab shiftwidth=4

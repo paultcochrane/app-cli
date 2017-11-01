@@ -8,7 +8,8 @@ our $VERSION = '0.1';
 use constant alias => (
     '--version' => '+App::CLI::Command::Version',
     'version'   => '+App::CLI::Command::Version',
-    te => 'test',
+    commands    => '+App::CLI::Command::Commands',
+    te          => 'test',
 );
 
 use constant global_options => (

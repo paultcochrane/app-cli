@@ -37,10 +37,8 @@ sub run {
         my $cmd        = $self->app->get_cmd($_);
         my @components = split /::/, ref $cmd;
         my $name       = lc pop @components;
-        printf "    %${longest}s: %s\n", $name,
-          lc( $cmd->abstract ) || '[ undocumented ]';
+        printf "    %${longest}s\n", $name;
     }
-    print "\n";
 }
 
 1;
