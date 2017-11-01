@@ -3,7 +3,13 @@ use strict;
 use warnings;
 use base qw(App::CLI App::CLI::Command);
 
-use constant alias => ( te => 'test' );
+our $VERSION = '0.1';
+
+use constant alias => (
+    '--version' => '+App::CLI::Command::Version',
+    'version'   => '+App::CLI::Command::Version',
+    te => 'test',
+);
 
 use constant global_options => (
     'help'       => 'help',

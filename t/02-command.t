@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 3;
+use Test::More tests => 4;
 use lib qw(t/lib);
 use Capture::Tiny qw(capture_stdout);
 
@@ -62,6 +62,22 @@ subtest "usage() behaviour" => sub {
 
     # what to expect with docs in app?
     # what to expect with $with_detail option to usage()?
+};
+
+subtest "version() behaviour" => sub {
+    plan tests => 1;
+
+    my $output = capture_stdout {
+        local *ARGV = ['version'];
+        my $command = MyCompleteApp->new();
+        $command->dispatch();
+    };
+    chomp $output;
+    is(
+        $output,
+        '02-command.t (MyCompleteApp) version 0.1 (t/02-command.t)',
+        "version command shows version information"
+    );
 };
 
 # vim: expandtab shiftwidth=4
