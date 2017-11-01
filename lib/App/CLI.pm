@@ -7,6 +7,8 @@ use Class::Load qw( load_class );
 
 our $VERSION = '0.46';
 
+=encoding utf8
+
 =head1 NAME
 
 App::CLI - Dispatcher module for command line interface programs
