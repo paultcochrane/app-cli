@@ -308,6 +308,10 @@ Chia-liang Kao E<lt>clkao@clkao.orgE<gt>
 
 =item *
 
+Alex Vandiver  E<lt>alexmv@bestpractical.comE<gt>
+
+=item *
+
 Yo-An Lin      E<lt>cornelius.howl@gmail.comE<gt>
 
 =item *
