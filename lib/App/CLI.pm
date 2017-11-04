@@ -238,7 +238,7 @@ sub cmd_map {
     # No such command
     return unless $cmd;
 
-    my $base = ref $self->app;
+    my $base = ref $self;
     return join '::', $base, ucfirst $cmd;
 }
 
