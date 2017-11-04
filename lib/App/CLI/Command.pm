@@ -148,7 +148,7 @@ sub brief_usage {
     open my ($podfh), '<', ( $file || $self->filename ) or return;
     local $/ = undef;
     my $buf  = <$podfh>;
-    my $base = $self->app;
+    my $base = ref $self->app;
     if ( $buf =~ /^=head1\s+NAME\s*\Q$base\E::(\w+ - .+)$/m ) {
         print "   ", loc( lc($1) ), "\n";
     }
@@ -177,7 +177,7 @@ sub usage {
     $parser->output_string( \$buf );
     $parser->parse_file($fname);
 
-    my $base = $self->app;
+    my $base = ref $self->app;
     $buf =~ s/\Q$base\E::(\w+)/\l$1/g;
     $buf =~ s/^AUTHORS.*//sm;
     $buf =~ s/^DESCRIPTION.*//sm unless $want_detail;

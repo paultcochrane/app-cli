@@ -79,7 +79,7 @@ sub run {
 
 sub help_base {
     my $self = shift;
-    return $self->app . "::Help";
+    return ref( $self->app ) . "::Help";
 }
 
 my ( $inc, @prefix );
