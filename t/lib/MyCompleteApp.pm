@@ -12,7 +12,7 @@ use constant alias => (
     te          => 'test',
 );
 
-use constant global_options => (
+use constant options => (
     'help'       => 'help',
     'username=s' => 'username',
     'force'      => 'force'
