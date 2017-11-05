@@ -25,7 +25,7 @@ App::CLI::Command::Help
 
 Your command class should be capitalized.
 
-To add help message, just add POD in the command class:
+To add a help message, just add POD in the command class:
 
     package YourApp::Command::Foo;
 
