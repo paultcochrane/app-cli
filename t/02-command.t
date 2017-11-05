@@ -106,7 +106,7 @@ subtest "commands() behaviour" => sub {
 };
 
 subtest "help command behaviour" => sub {
-    plan tests => 3;
+    plan tests => 4;
 
     {
         local *ARGV = [ 'help', 'unknown_topic' ];
@@ -143,6 +143,19 @@ subtest "help command behaviour" => sub {
             "Default help output without explicit topics arg"
         );
     }
+
+    {
+        local *ARGV = [ 'help', 'help' ];
+        my $command = MyCompleteApp->new();
+        my $output = capture_stdout { $command->dispatch() };
+        chomp $output;
+        like(
+            $output,
+            qr/NAME\s+help - help for the complete test app/m,
+            "Help output for explicit topic with own usage text"
+        );
+    }
+
 };
 
 # vim: expandtab shiftwidth=4
