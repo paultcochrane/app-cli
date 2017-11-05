@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 7;
+use Test::More tests => 6;
 use lib qw(t/lib);
 use Capture::Tiny qw(capture_stdout);
 
@@ -11,16 +11,18 @@ use App::CLI::Command;
 use MyApp;
 use MyCompleteApp;
 
-my $eval_result = eval {
-    my $command = App::CLI::Command->new();
-    $command->run;
+subtest "require run() method" => sub {
+    my $eval_result = eval {
+        my $command = App::CLI::Command->new();
+        $command->run;
+    };
+    ok( !$eval_result );
+    like(
+        $@,
+        qr/does not implement mandatory method 'run'/,
+        "require subclass to implement run()"
+    );
 };
-ok( !$eval_result );
-like(
-    $@,
-    qr/does not implement mandatory method 'run'/,
-    "require subclass to implement run()"
-);
 
 subtest "brief_usage() behaviour" => sub {
     plan tests => 1;
