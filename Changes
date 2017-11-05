@@ -1,3 +1,10 @@
+0.48 Sun Nov 05 13:34:46 CET 2017
+
+  * fixed help output behaviour (patch from sunnavy)
+  * more rigorous testing of Help class
+  * minor documentation improvements
+  * add AppVeyor configuration
+
 0.47 Wed Nov 01 22:31:41 CET 2017
 
   * add missing prereqs
