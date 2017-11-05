@@ -155,13 +155,14 @@ sub brief_usage {
     local $/ = undef;
     my $buf  = <$podfh>;
     my $base = ref $self->app;
+    my $indent = "    ";
     if ( $buf =~ /^=head1\s+NAME\s*\Q$base\E::(\w+ - .+)$/m ) {
-        print "   ", loc( lc($1) ), "\n";
+        print $indent, loc( lc($1) ), "\n";
     }
     else {
         my $cmd = $file || $self->filename;
         $cmd =~ s/^(?:.*)\/(.*?).pm$/$1/;
-        print "   ", lc($cmd), " - ", loc("undocumented") . "\n";
+        print $indent, lc($cmd), " - ", loc("undocumented") . "\n";
     }
     close $podfh;
 }
