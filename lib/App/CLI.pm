@@ -336,6 +336,10 @@ The following people have contributed patches to the project:
 
 José Joaquín Atria E<lt>jjatria@gmail.comE<gt>
 
+=item *
+
+sunnavy            E<lt>sunnavy@gmail.comE<gt>
+
 =back
 
 =head1 COPYRIGHT
