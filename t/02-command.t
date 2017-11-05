@@ -135,7 +135,7 @@ subtest "help command behaviour" => sub {
     }
 
     {
-        local *ARGV = [ 'help' ];
+        local *ARGV = ['help'];
         my $command = MyCompleteApp->new();
         my $output = capture_stdout { $command->dispatch() };
         chomp $output;
