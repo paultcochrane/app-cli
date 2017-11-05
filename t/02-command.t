@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 6;
+use Test::More tests => 7;
 use lib qw(t/lib);
 use Capture::Tiny qw(capture_stdout);
 
@@ -11,10 +11,11 @@ use App::CLI::Command;
 use MyApp;
 use MyCompleteApp;
 
-eval {
+my $eval_result = eval {
     my $command = App::CLI::Command->new();
     $command->run;
 };
+ok( !$eval_result );
 like(
     $@,
     qr/does not implement mandatory method 'run'/,
@@ -106,12 +107,13 @@ subtest "commands() behaviour" => sub {
 };
 
 subtest "help command behaviour" => sub {
-    plan tests => 5;
+    plan tests => 6;
 
     {
         local *ARGV = [ 'help', 'unknown_topic' ];
         my $command = MyCompleteApp->new();
-        eval { $command->dispatch() };
+        my $eval_result = eval { $command->dispatch() };
+        ok( !$eval_result );
         chomp( my $error_text = $@ );
         is(
             $error_text,
