@@ -32,4 +32,8 @@ Me, Myself, I
 
 =cut
 
+sub run {
+    my ( $self, @args ) = @_;
+}
+
 1;
