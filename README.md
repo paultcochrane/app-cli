@@ -1,11 +1,11 @@
 # App::CLI - Dispatcher module for command line interface programs
 
-[![Coverage
-Status](https://coveralls.io/repos/github/paultcochrane/app-cli/badge.svg)](https://coveralls.io/github/paultcochrane/app-cli)
-[![Travis Build
-Status](https://travis-ci.org/paultcochrane/app-cli.svg?branch=master)](https://travis-ci.org/paultcochrane/app-cli)
-[![AppVeyor Build
-status](https://ci.appveyor.com/api/projects/status/g0dlp43k42lpy3s8?svg=true)](https://ci.appveyor.com/project/paultcochrane/app-cli)
+[![Coverage Status](https://coveralls.io/repos/github/paultcochrane/app-cli/badge.svg)
+](https://coveralls.io/github/paultcochrane/app-cli)
+[![Travis Build Status](https://travis-ci.org/paultcochrane/app-cli.svg?branch=master)
+](https://travis-ci.org/paultcochrane/app-cli)
+[![AppVeyor Build status](https://ci.appveyor.com/api/projects/status/g0dlp43k42lpy3s8?svg=true)
+](https://ci.appveyor.com/project/paultcochrane/app-cli)
 
 
 `App::CLI` dispatches CLI (command line interface) based commands
