@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 5;
+use Test::More tests => 6;
 use lib qw(t/lib);
 use Capture::Tiny qw(capture_stdout);
 
@@ -101,12 +101,36 @@ subtest "commands() behaviour" => sub {
         $command->dispatch();
     };
     chomp $output;
-    is(
-        $output,
-        '    help',
-        "commands command shows available commands in app"
-    );
+    is( $output, '    help',
+        "commands command shows available commands in app" );
+};
 
+subtest "help command behaviour" => sub {
+    plan tests => 2;
+
+    {
+        local *ARGV = [ 'help', 'unknown_topic' ];
+        my $command = MyCompleteApp->new();
+        eval { $command->dispatch() };
+        chomp( my $error_text = $@ );
+        is(
+            $error_text,
+            "Cannot find help topic 'unknown_topic'.",
+            "Unknown topic error text"
+        );
+    }
+
+    {
+        local *ARGV = [ 'help', 'commands' ];
+        my $command = MyCompleteApp->new();
+        my $output = capture_stdout { $command->dispatch() };
+        chomp $output;
+        is(
+            $output,
+            '    help - help for the complete test app',
+            "Explicit commands help request"
+        );
+    }
 };
 
 # vim: expandtab shiftwidth=4
