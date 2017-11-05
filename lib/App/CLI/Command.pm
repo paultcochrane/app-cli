@@ -125,6 +125,12 @@ sub cascadable {
     return undef;
 }
 
+=head3 app
+
+Return the object referring to the current app.
+
+=cut
+
 sub app {
     my $self = shift;
 
