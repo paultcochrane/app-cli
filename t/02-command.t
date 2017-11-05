@@ -163,9 +163,12 @@ subtest "help command behaviour" => sub {
         my $command = MyCompleteApp->new();
         my $output = capture_stdout { $command->dispatch() };
         chomp $output;
+        my $heading      = 'NAME\s+';
+        my $package_name = 'MyCompleteApp::Help::Force';
+        my $help_text    = 'force the action to happen';
         like(
             $output,
-            qr/NAME\s+MyCompleteApp::Help::Force - force the action to happen$/m,
+            qr/$heading$package_name - $help_text/m,
             "Help output for explicit topic with help in POD"
         );
     }
