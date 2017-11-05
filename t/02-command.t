@@ -106,7 +106,7 @@ subtest "commands() behaviour" => sub {
 };
 
 subtest "help command behaviour" => sub {
-    plan tests => 2;
+    plan tests => 3;
 
     {
         local *ARGV = [ 'help', 'unknown_topic' ];
@@ -129,6 +129,18 @@ subtest "help command behaviour" => sub {
             $output,
             '    help - help for the complete test app',
             "Explicit commands help request"
+        );
+    }
+
+    {
+        local *ARGV = [ 'help' ];
+        my $command = MyCompleteApp->new();
+        my $output = capture_stdout { $command->dispatch() };
+        chomp $output;
+        is(
+            $output,
+            '    help - help for the complete test app',
+            "Default help output without explicit topics arg"
         );
     }
 };
