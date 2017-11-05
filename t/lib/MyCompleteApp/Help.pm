@@ -5,7 +5,8 @@ use strict;
 use warnings;
 
 sub run {
-    my ( $self, @args ) = @_;
+    my $self = shift;
+    $self->SUPER::run(@_);
 }
 
 1;
