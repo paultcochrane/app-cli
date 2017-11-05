@@ -116,7 +116,7 @@ sub cascadable {
         my $package_name = $class . '::' . $_;
         load_class $package_name;
         if ( $ARGV[0]
-            and ucfirst( $ARGV[0] ) eq $_
+            && (ucfirst( $ARGV[0] ) eq $_)
             && exists ${ $class . '::' }{ $_ . '::' } )
         {
             return $package_name;
