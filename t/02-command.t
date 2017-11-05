@@ -106,7 +106,7 @@ subtest "commands() behaviour" => sub {
 };
 
 subtest "help command behaviour" => sub {
-    plan tests => 4;
+    plan tests => 5;
 
     {
         local *ARGV = [ 'help', 'unknown_topic' ];
@@ -156,6 +156,17 @@ subtest "help command behaviour" => sub {
         );
     }
 
+    {
+        local *ARGV = [ 'help', 'force' ];
+        my $command = MyCompleteApp->new();
+        my $output = capture_stdout { $command->dispatch() };
+        chomp $output;
+        like(
+            $output,
+            qr/NAME\s+MyCompleteApp::Help::Force - force the action to happen$/m,
+            "Help output for explicit topic with help in POD"
+        );
+    }
 };
 
 # vim: expandtab shiftwidth=4
