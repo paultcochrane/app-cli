@@ -34,6 +34,7 @@ WriteMakefile(
     MIN_PERL_VERSION => 5.006,
     TEST_REQUIRES    => {
         'lib'            => 0,
+        'Class::Load'    => 0,
         'Test::Kwalitee' => 0,
         'Test::More'     => 0,
         'Test::Pod'      => 0,
