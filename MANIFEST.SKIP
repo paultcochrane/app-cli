@@ -2,10 +2,11 @@
 .*\.bak$
 .*\.old$
 .*\.swp$
+\.appveyor\.yml
 \.coveralls\.yml
 ^\.git
-\.travis\.yml
 \.releaserc
+\.travis\.yml
 .tar.gz$
 ^blib
 ^cover_db
