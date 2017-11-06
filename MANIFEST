@@ -23,3 +23,4 @@ t/lib/MyApp/Test/Cascading/Infinite.pm
 t/lib/MyApp/Test/Cascading/Infinite/Subcommands.pm
 t/lib/MyCompleteApp.pm
 t/lib/MyCompleteApp/Help.pm
+t/lib/MyCompleteApp/Help/Force.pm
