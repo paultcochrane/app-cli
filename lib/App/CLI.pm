@@ -5,7 +5,7 @@ use warnings;
 use 5.006;
 use Class::Load qw( load_class );
 
-our $VERSION = '0.48';
+our $VERSION = '0.49';
 
 =encoding utf8
 
