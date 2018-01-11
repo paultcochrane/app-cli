@@ -156,8 +156,8 @@ sub brief_usage {
     my $buf  = <$podfh>;
     my $base = ref $self->app;
     my $indent = "    ";
-    if ( $buf =~ /^=head1\s+NAME\s*\Q$base\E::(\w+ - .+)$/m ) {
-        print $indent, loc( lc($1) ), "\n";
+    if ( $buf =~ /^=head1\s+NAME\s*\Q$base\E::(\w+)( - .+)$/m ) {
+        print $indent, loc( lc($1) . $2 ), "\n";
     }
     else {
         my $cmd = $file || $self->filename;
