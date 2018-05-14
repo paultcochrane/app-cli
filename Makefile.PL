@@ -51,6 +51,7 @@ WriteMakefile(
         x_contributors => [
             'José Joaquín Atria <jjatria@gmail.com>',
             'sunnavy            <sunnavy@gmail.com>',
+            'Ildar Shaimordanov <ildar.shaimordanov@gmail.com>',
         ],
     },
 );

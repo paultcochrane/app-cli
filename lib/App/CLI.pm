@@ -340,6 +340,11 @@ José Joaquín Atria E<lt>jjatria@gmail.comE<gt>
 
 sunnavy            E<lt>sunnavy@gmail.comE<gt>
 
+=item *
+
+
+Ildar Shaimordanov E<lt>ildar.shaimordanov@gmail.comE<gt>
+
 =back
 
 =head1 COPYRIGHT
