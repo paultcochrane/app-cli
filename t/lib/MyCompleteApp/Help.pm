@@ -6,7 +6,7 @@ use warnings;
 
 =head1 NAME
 
-MyCompleteApp::Help - help for the complete test app
+MyCompleteApp::Help - help for the Complete Test App
 
 =cut
 

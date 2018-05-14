@@ -131,7 +131,7 @@ subtest "help command behaviour" => sub {
         chomp $output;
         is(
             $output,
-            '    help - help for the complete test app',
+            '    help - help for the Complete Test App',
             "Explicit commands help request"
         );
     }
@@ -143,7 +143,7 @@ subtest "help command behaviour" => sub {
         chomp $output;
         is(
             $output,
-            '    help - help for the complete test app',
+            '    help - help for the Complete Test App',
             "Default help output without explicit topics arg"
         );
     }
@@ -155,7 +155,7 @@ subtest "help command behaviour" => sub {
         chomp $output;
         like(
             $output,
-            qr/NAME\s+help - help for the complete test app/m,
+            qr/NAME\s+help - help for the Complete Test App/m,
             "Help output for explicit topic with own usage text"
         );
     }
