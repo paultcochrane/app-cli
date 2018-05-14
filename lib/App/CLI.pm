@@ -352,7 +352,7 @@ Ildar Shaimordanov E<lt>ildar.shaimordanov@gmail.comE<gt>
 Copyright 2005-2010 by Chia-liang Kao E<lt>clkao@clkao.orgE<gt>.
 Copyright 2010 by Yo-An Lin E<lt>cornelius.howl@gmail.comE<gt>
 and Shelling E<lt>navyblueshellingford@gmail.comE<gt>.
-Copyright 2017 by Paul Cochrane E<lt>paul@liekut.deE<gt>
+Copyright 2017-2018 by Paul Cochrane E<lt>paul@liekut.deE<gt>
 
 This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.
