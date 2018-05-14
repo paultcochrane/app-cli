@@ -25,7 +25,7 @@ subtest "require run() method" => sub {
 };
 
 subtest "brief_usage() behaviour" => sub {
-    plan tests => 1;
+    plan tests => 2;
 
     my $output = capture_stdout {
         local *ARGV = ['help'];
@@ -38,6 +38,18 @@ subtest "brief_usage() behaviour" => sub {
         qr/myapp - undocumented/,
         "undocumented brief_usage() message"
     );
+
+    $output = capture_stdout {
+        local *ARGV = ['help'];
+        my $command = MyCompleteApp->new();
+        $command->dispatch();
+        $command->brief_usage();
+    };
+    like(
+        $output,
+        qr/help - help for the Complete Test App/,
+        "documented brief_usage() message"
+    );  # see also https://github.com/paultcochrane/app-cli/pull/14
 
     # TODO: undocumented in specified file
     # how to behave if input filename doesn't exist?
