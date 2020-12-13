@@ -13,7 +13,7 @@ WriteMakefile(
         'Chia-liang Kao <clkao@clkao.org>',
         'Yo-An Lin      <cornelius.howl@gmail.com>',
         'Shelling       <navyblueshellingford@gmail.com>',
-        'Paul Cochrane  <paul@liekut.de>',
+        'Paul Cochrane  <ptc@cpan.org>',
     ],
     LICENSE   => "perl_5",
     PREREQ_PM => {
