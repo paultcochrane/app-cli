@@ -40,12 +40,12 @@ WriteMakefile(
         'Test::Pod'      => 0,
     },
     META_MERGE => {
-        "meta-spec" => { version => 2 },
-        resources   => {
-            repository => {
-                type => 'git',
-                url  => 'git@github.com:paultcochrane/app-cli.git',
-                web  => 'https://github.com/paultcochrane/app-cli',
+        'meta-spec' => { version => 2 },
+        'resources' => {
+            'repository' => {
+                'type' => 'git',
+                'url'  => 'git@github.com:paultcochrane/app-cli.git',
+                'web'  => 'https://github.com/paultcochrane/app-cli',
             },
         },
         x_contributors => [
