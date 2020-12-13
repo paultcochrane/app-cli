@@ -7,7 +7,6 @@ App-CLI-*.tar.gz
 Makefile
 Makefile.old
 Makefile.PL.old
-META.yml
 MYMETA.*
 blib
 cover_db/
