@@ -72,7 +72,7 @@ sub subcommand {
     @cmd = values %{ { $self->options } } if @cmd && $cmd[0] eq '*';
     my $subcmd = undef;
     for ( grep { $self->{$_} } @cmd ) {
-        no strict 'refs';
+        no strict 'refs';  ## no critic
         if ( exists ${ ref($self) . '::' }{ $_ . '::' } ) {
             my %data = %{$self};
             $subcmd = bless( {%data}, ( ref($self) . "::$_" ) );
@@ -112,7 +112,7 @@ sub cascadable {
     my $self = shift;
     my $class = ref $self || $self;
     for ( $self->subcommands ) {
-        no strict 'refs';
+        no strict 'refs';  ## no critic
         my $package_name = $class . '::' . $_;
         load_class $package_name;
         if ( $ARGV[0]
