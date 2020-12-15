@@ -1,3 +1,7 @@
+0.51 Mon Dec 14 19:56:11 CET 2020
+
+  * fix licensing inconsistency (spotted by kentnl)
+
 0.50 Mon May 14 19:41:04 CEST 2018
 
   * improve 'brief_usage()' output (patch from Ildar Shaimordanov)
