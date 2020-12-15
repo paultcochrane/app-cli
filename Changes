@@ -1,3 +1,7 @@
+0.52 Tue Dec 15 11:27:33 CET 2020
+
+  * set bugtracker metadata explicitly
+
 0.51 Mon Dec 14 19:56:11 CET 2020
 
   * fix licensing inconsistency (spotted by kentnl)

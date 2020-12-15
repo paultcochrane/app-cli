@@ -63,12 +63,15 @@
    },
    "release_status" : "stable",
    "resources" : {
+      "bugtracker" : {
+         "web" : "https://github.com/paultcochrane/app-cli/issues"
+      },
       "repository" : {
          "type" : "git",
          "web" : "https://github.com/paultcochrane/app-cli"
       }
    },
-   "version" : "0.50",
+   "version" : "0.52",
    "x_contributors" : [
       "JosÃ© JoaquÃ­n Atria <jjatria@gmail.com>",
       "sunnavy            <sunnavy@gmail.com>",

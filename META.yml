@@ -41,8 +41,9 @@ requires:
   strict: '0'
   warnings: '0'
 resources:
+  bugtracker: https://github.com/paultcochrane/app-cli/issues
   repository: https://github.com/paultcochrane/app-cli
-version: '0.50'
+version: '0.52'
 x_contributors:
   - 'JosÃ© JoaquÃ­n Atria <jjatria@gmail.com>'
   - 'sunnavy            <sunnavy@gmail.com>'
